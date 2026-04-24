@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sean O'Brien (L)</title>
+  <meta name="description" content="Sean O'Brien — Director & Editor portfolio">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --fg: #1a1a1a;
+      --muted: #888;
+      --accent: #c0392b;
+      --nav-h: 52px;
+      --gap: 6px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid #e8e5e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: var(--nav-h);
+    }
+
+    .logo {
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    nav { display: flex; gap: 32px; }
+
+    nav a {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active { color: var(--fg); }
+    nav a.active { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ── GRID ── */
+    main {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+      padding: var(--gap);
+    }
+
+    /* ── PROJECT CARD ── */
+    .project {
+      position: relative;
+      overflow: hidden;
+      background: #e8e5e0;
+      cursor: pointer;
+    }
+
+    .project img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .project:hover img { transform: scale(1.04); }
+
+    .project-label {
+      padding: 10px 4px 18px;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    /* ── PLACEHOLDER ── */
+    .project.placeholder .thumb {
+      aspect-ratio: 16 / 10;
+      background: repeating-linear-gradient(
+        -45deg,
+        #e8e5e0,
+        #e8e5e0 4px,
+        #dedad4 4px,
+        #dedad4 8px
+      );
+    }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .project {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .project:nth-child(1)  { animation-delay: 0.05s; }
+    .project:nth-child(2)  { animation-delay: 0.10s; }
+    .project:nth-child(3)  { animation-delay: 0.15s; }
+    .project:nth-child(4)  { animation-delay: 0.20s; }
+    .project:nth-child(5)  { animation-delay: 0.25s; }
+    .project:nth-child(6)  { animation-delay: 0.30s; }
+    .project:nth-child(7)  { animation-delay: 0.35s; }
+    .project:nth-child(8)  { animation-delay: 0.40s; }
+    .project:nth-child(9)  { animation-delay: 0.45s; }
+    .project:nth-child(10) { animation-delay: 0.50s; }
+    .project:nth-child(11) { animation-delay: 0.55s; }
+    .project:nth-child(12) { animation-delay: 0.60s; }
+    .project:nth-child(13) { animation-delay: 0.65s; }
+    .project:nth-child(14) { animation-delay: 0.70s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      nav { gap: 20px; }
+      main { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">Sean O'Brien (L)</a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#" class="active">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg"
+        alt="Critter Carol"
+        loading="lazy">
+      <div class="project-label">Critter Carol</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_SUBMERGED_EP.jpg"
+        alt="Submerged"
+        loading="lazy">
+      <div class="project-label">Submerged</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_1.jpg"
+        alt="Combat Ready"
+        loading="lazy">
+      <div class="project-label">Combat Ready</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg"
+        alt="Fuzzy Feelings"
+        loading="lazy">
+      <div class="project-label">Fuzzy Feelings</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_DUALIPA_POSTER.jpg"
+        alt="Dua Lipa"
+        loading="lazy">
+      <div class="project-label">Dua Lipa</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_3.jpg"
+        alt="@Apple Commissions"
+        loading="lazy">
+      <div class="project-label">@Apple Commissions</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_4.jpg"
+        alt="Bob Marley Legacy"
+        loading="lazy">
+      <div class="project-label">Bob Marley Legacy</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_FR_POSTER.webp"
+        alt="30 for 30: Friedman's Shoes"
+        loading="lazy">
+      <div class="project-label">30 for 30: Friedman's Shoes</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg"
+        alt="After The Raves"
+        loading="lazy">
+      <div class="project-label">After The Raves</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_6.jpg"
+        alt='Ne-Yo "In My Own Words"'
+        loading="lazy">
+      <div class="project-label">Ne-Yo "In My Own Words"</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_PHOENIX_POSTER.jpg"
+        alt="On Stage – Phoenix"
+        loading="lazy">
+      <div class="project-label">On Stage – Phoenix</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_14.jpg"
+        alt="Jaden Smith X NB"
+        loading="lazy">
+      <div class="project-label">Jaden Smith X NB</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_15.jpg"
+        alt="LAFC"
+        loading="lazy">
+      <div class="project-label">LAFC</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_16.jpg"
+        alt="Testing Action Mode"
+        loading="lazy">
+      <div class="project-label">Testing Action Mode</div>
+    </div>
+
+    <div class="project">
+      <img
+        src="https://boombaclap.github.io/portfolio/images/PIMG_17.jpg"
+        alt="Rap Life"
+        loading="lazy">
+      <div class="project-label">Rap Life</div>
+    </div>
+
+    <div class="project placeholder">
+      <div class="thumb"></div>
+      <div class="project-label">— </div>
+    </div>
+
+    <div class="project placeholder">
+      <div class="thumb"></div>
+      <div class="project-label">— </div>
+    </div>
+
+    <div class="project placeholder">
+      <div class="thumb"></div>
+      <div class="project-label">— </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
