@@ -179,6 +179,10 @@ nav a.active {
   margin-bottom: 40px;
 }
 
+.video-wrap.vertical {
+  padding-bottom: 177.78%;
+}
+
 .video-wrap iframe {
   position: absolute;
   inset: 0;
