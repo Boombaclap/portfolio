@@ -180,10 +180,12 @@ nav a.active {
 }
 
 .video-wrap.vertical {
-  width: 35%;          /* roughly matches the visual height of a 16:9 video */
+  width: 100%;
+  max-width: 320px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: calc(35% * 1.7778);  /* maintains 9:16 ratio */
+  padding-bottom: 0;
+  height: 568px;       /* 320 × 16/9 ≈ 568px */
 }
 
 .video-wrap iframe {
