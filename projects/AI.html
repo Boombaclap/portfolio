@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usher Superbowl - Sean O'Brien</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ── DARK PROJECT PAGE ── */
+    body.dark-project {
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    .dark-project header {
+      background: #0d0d0d;
+      border-bottom-color: #1e1e1e;
+    }
+
+    .dark-project .logo {
+      color: #fff;
+    }
+
+    .dark-project nav a {
+      color: #555;
+    }
+
+    .dark-project nav a:hover {
+      color: #fff;
+    }
+
+    .dark-project nav a.active {
+      color: #fff;
+    }
+
+    .dark-project .back-link {
+      color: #555;
+    }
+
+    .dark-project .back-link:hover {
+      color: #fff;
+    }
+
+    /* ── FULL-WIDTH LAYOUT ── */
+    .dark-project .project-page {
+      max-width: 100%;
+      padding: 40px 0 96px;
+    }
+
+    .project-header {
+      padding: 0 40px 52px;
+    }
+
+    .dark-project .project-title {
+      color: #fff;
+    }
+
+    .dark-project .project-meta {
+      color: #555;
+      margin-bottom: 0;
+    }
+
+    /* ── VIDEO GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+
+    .video-entry {
+      display: flex;
+      flex-direction: column;
+      background: #0d0d0d;
+    }
+
+    .video-entry .video-wrap {
+      margin-bottom: 0;
+      background: #111;
+    }
+
+    .video-entry-meta {
+      padding: 20px 28px 48px;
+    }
+
+    .video-entry-date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .video-entry-title {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .video-entry-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.65;
+      max-width: 520px;
+    }
+
+    /* ── VERTICAL VIDEO ROW ── */
+    .video-row-vertical {
+      display: flex;
+      justify-content: center;
+      padding: 0 40px;
+      gap: 3px;
+    }
+
+    .video-entry.vertical-entry {
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .video-entry.vertical-entry .video-wrap {
+      padding-bottom: 177.78%;
+    }
+
+    .dark-project .project-description.empty {
+      color: #444;
+      padding: 48px 40px 0;
+      border-left-color: #222;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-header {
+        padding: 0 20px 40px;
+      }
+
+      .video-row-vertical {
+        padding: 0 20px;
+      }
+
+      .video-entry.vertical-entry {
+        max-width: 100%;
+      }
+
+      .video-entry.vertical-entry .video-wrap {
+        padding-bottom: 177.78%;
+      }
+    }
+  </style>
+</head>
+<body class="dark-project">
+  <header>
+    <a href="../index.html" class="logo">Sean O'Brien</a>
+    <nav>
+      <a href="../about.html">About</a>
+      <a href="../index.html" class="active">Work</a>
+      <a href="../contact.html">Prompted</a>
+    </nav>
+  </header>
+
+  <div class="project-page">
+
+    <div class="project-header">
+      <a href="../index.html" class="back-link">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
+        All Work
+      </a>
+      <h1 class="project-title">Usher Superbowl</h1>
+      <p class="project-meta">Apple &mdash; #ShotoniPhone</p>
+    </div>
+
+    <!-- 2-column video grid -->
+    <div class="video-grid">
+
+      <div class="video-entry">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/hAhaGk33440" title="Apple - Usher Half Time Super Bowl Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="video-entry-meta">
+          <div class="video-entry-date">2/9/24</div>
+          <div class="video-entry-title">Half Time Trailer</div>
+          <div class="video-entry-desc">The official Apple trailer for Usher's Super Bowl LVIII halftime show, shot entirely on iPhone.</div>
+        </div>
+      </div>
+
+      <div class="video-entry">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/YZrO8ai56ok" title="Usher Super Bowl Half Time Show Shot on iPhone Case Study" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="video-entry-meta">
+          <div class="video-entry-date">2/9/24</div>
+          <div class="video-entry-title">Shot on iPhone — Case Study</div>
+          <div class="video-entry-desc">Behind the lens of the most-watched halftime show in Super Bowl history, captured on iPhone 15 Pro.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Vertical video, centered below -->
+    <div class="video-row-vertical">
+      <div class="video-entry vertical-entry">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/mOgORpzRofY" title="Apple - Usher Super Bowl Half Time Show Teaser" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="video-entry-meta">
+          <div class="video-entry-date">2/9/24</div>
+          <div class="video-entry-title">Teaser</div>
+          <div class="video-entry-desc">A vertical teaser for the halftime show, built for mobile.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="project-description empty">Description coming soon</p>
+
+  </div>
+</body>
+</html>
