@@ -68,8 +68,19 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: #111;
       overflow: hidden;
+    }
+
+    /* Inner element that zooms on hover — mirrors index.html thumb-wrap img */
+    .video-placeholder-inner {
+      position: absolute;
+      inset: 0;
+      background: #111;
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .contact-entry:hover .video-placeholder-inner {
+      transform: scale(1.04);
     }
 
     /* Play icon */
@@ -82,6 +93,11 @@
       height: 40px;
       opacity: 0.12;
       z-index: 1;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-entry:hover .video-placeholder-block svg {
+      opacity: 0.22;
     }
 
     /* Title centered over the placeholder */
@@ -143,6 +159,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
@@ -153,6 +170,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
@@ -163,6 +181,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
@@ -173,6 +192,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
@@ -183,6 +203,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
@@ -193,6 +214,7 @@
 
       <div class="contact-entry">
         <div class="video-placeholder-block">
+          <div class="video-placeholder-inner"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
           <div class="placeholder-title">Title</div>
         </div>
