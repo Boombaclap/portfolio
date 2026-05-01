@@ -41,118 +41,84 @@
       margin-bottom: 0;
     }
 
-    /* ── 2-COLUMN CONTACT GRID ── */
+    /* ── 2-COLUMN GRID ── */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3px;
     }
 
+    /* ── ENTRY: starts invisible for fade-in ── */
     .contact-entry {
       display: flex;
       flex-direction: column;
       background: #0d0d0d;
-      border-top: 1px solid #1e1e1e;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .contact-image {
+    .contact-entry.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── 16:9 PLACEHOLDER WITH TITLE OVERLAY ── */
+    .video-placeholder-block {
+      position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #111;
       overflow: hidden;
     }
 
-    .contact-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(20%);
-      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Play icon */
+    .video-placeholder-block svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      opacity: 0.12;
+      z-index: 1;
     }
 
-    .contact-entry:hover .contact-image img {
-      transform: scale(1.03);
-    }
-
-    /* Placeholder when no image */
-    .contact-image.placeholder {
-      background: #111;
+    /* Title centered over the placeholder */
+    .placeholder-title {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .contact-image.placeholder span {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #333;
-    }
-
-    .contact-entry-meta {
-      padding: 20px 28px 48px;
-    }
-
-    .contact-entry-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-      color: #555;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    .contact-entry-title {
+      z-index: 2;
       font-family: 'EB Garamond', serif;
-      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-size: clamp(1.3rem, 2vw, 1.9rem);
       font-weight: 400;
       color: #fff;
-      line-height: 1.2;
-      margin-bottom: 14px;
       letter-spacing: -0.01em;
+      text-align: center;
+      padding: 0 24px;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.8);
+    }
+
+    /* ── DESCRIPTION BELOW ── */
+    .contact-entry-meta {
+      padding: 16px 24px 40px;
     }
 
     .contact-entry-desc {
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       font-weight: 300;
-      color: #888;
+      color: #666;
       line-height: 1.65;
-      max-width: 520px;
-      margin-bottom: 20px;
-    }
-
-    .contact-entry-link {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      color: #fff;
-      text-decoration: underline;
-      text-underline-offset: 4px;
-      text-decoration-color: #444;
-      transition: text-decoration-color 0.2s;
-    }
-
-    .contact-entry-link:hover {
-      text-decoration-color: #fff;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project-header {
-        padding: 0 20px 40px;
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .project-header { padding: 0 20px 40px; }
     }
   </style>
 </head>
@@ -169,61 +135,93 @@
   <div class="project-page">
 
     <div class="project-header">
-      <h1 class="project-title">Prompted.</h1>
-      <p class="project-meta">Get in touch</p>
+      <h1 class="project-title">Prompted</h1>
+      <p class="project-meta">Video</p>
     </div>
 
     <div class="contact-grid">
 
-      <a href="mailto:me@seanmobrien.com" class="contact-entry" style="text-decoration:none;">
-        <div class="contact-image placeholder">
-          <span>Email</span>
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
         </div>
         <div class="contact-entry-meta">
-          <div class="contact-entry-label">Direct</div>
-          <div class="contact-entry-title">Say hello.</div>
-          <div class="contact-entry-desc">For work inquiries, collaborations, or just a conversation.</div>
-          <span class="contact-entry-link">me@seanmobrien.com</span>
+          <div class="contact-entry-desc">Description coming soon.</div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.linkedin.com/in/seanmobrien" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
-        <div class="contact-image placeholder">
-          <span>LinkedIn</span>
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
         </div>
         <div class="contact-entry-meta">
-          <div class="contact-entry-label">Professional</div>
-          <div class="contact-entry-title">Connect.</div>
-          <div class="contact-entry-desc">Work history, recommendations, and professional updates.</div>
-          <span class="contact-entry-link">linkedin.com/in/seanmobrien</span>
+          <div class="contact-entry-desc">Description coming soon.</div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
-        <div class="contact-image placeholder">
-          <span>Instagram</span>
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
         </div>
         <div class="contact-entry-meta">
-          <div class="contact-entry-label">Visual</div>
-          <div class="contact-entry-title">Follow along.</div>
-          <div class="contact-entry-desc">Behind-the-scenes, work in progress, and things that catch my eye.</div>
-          <span class="contact-entry-link">@seanmobrien</span>
+          <div class="contact-entry-desc">Description coming soon.</div>
         </div>
-      </a>
+      </div>
 
-      <a href="https://twitter.com/" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
-        <div class="contact-image placeholder">
-          <span>X / Twitter</span>
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
         </div>
         <div class="contact-entry-meta">
-          <div class="contact-entry-label">Social</div>
-          <div class="contact-entry-title">Join the feed.</div>
-          <div class="contact-entry-desc">Thoughts, links, and things worth sharing.</div>
-          <span class="contact-entry-link">@seanmobrien</span>
+          <div class="contact-entry-desc">Description coming soon.</div>
         </div>
-      </a>
+      </div>
+
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-desc">Description coming soon.</div>
+        </div>
+      </div>
+
+      <div class="contact-entry">
+        <div class="video-placeholder-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <div class="placeholder-title">Title</div>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-desc">Description coming soon.</div>
+        </div>
+      </div>
 
     </div>
   </div>
+
+  <script>
+    // Staggered fade-in on load using IntersectionObserver
+    const entries = document.querySelectorAll('.contact-entry');
+
+    const observer = new IntersectionObserver((observed) => {
+      observed.forEach((item) => {
+        if (item.isIntersecting) {
+          item.target.classList.add('visible');
+          observer.unobserve(item.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    entries.forEach((entry, i) => {
+      // Stagger each card by 100ms
+      entry.style.transitionDelay = `${i * 100}ms`;
+      observer.observe(entry);
+    });
+  </script>
 </body>
 </html>
