@@ -3,42 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Usher Superbowl - Sean O'Brien</title>
+  <title>Prompted - Sean O'Brien</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ── DARK BASE ── */
+    body.dark-project {
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    .dark-project header {
+      background: #0d0d0d;
+      border-bottom-color: #1e1e1e;
+    }
+
+    .dark-project .logo { color: #fff; }
+    .dark-project nav a { color: #555; }
+    .dark-project nav a:hover { color: #fff; }
+    .dark-project nav a.active { color: #fff; }
+
+    /* ── FULL-WIDTH LAYOUT ── */
+    .dark-project .project-page {
+      max-width: 100%;
+      padding: 40px 0 96px;
+    }
+
+    .project-header {
+      padding: 0 40px 52px;
+    }
+
+    .dark-project .project-title { color: #fff; }
+    .dark-project .project-meta {
+      color: #555;
+      margin-bottom: 0;
+    }
+
+    /* ── 2-COLUMN CONTACT GRID ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .contact-entry {
+      display: flex;
+      flex-direction: column;
+      background: #0d0d0d;
+      border-top: 1px solid #1e1e1e;
+    }
+
+    .contact-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      overflow: hidden;
+    }
+
+    .contact-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .contact-entry:hover .contact-image img {
+      transform: scale(1.03);
+    }
+
+    /* Placeholder when no image */
+    .contact-image.placeholder {
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-image.placeholder span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .contact-entry-meta {
+      padding: 20px 28px 48px;
+    }
+
+    .contact-entry-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: #555;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .contact-entry-title {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-entry-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: #888;
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 20px;
+    }
+
+    .contact-entry-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      text-decoration-color: #444;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .contact-entry-link:hover {
+      text-decoration-color: #fff;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-header {
+        padding: 0 20px 40px;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
 </head>
-<body>
+<body class="dark-project">
   <header>
     <a href="../index.html" class="logo">Sean O'Brien</a>
     <nav>
       <a href="../about.html">About</a>
-      <a href="../index.html" class="active">Work</a>
-      <a href="../contact.html">Prompted</a>
+      <a href="../index.html">Work</a>
+      <a href="../contact.html" class="active">Prompted</a>
     </nav>
   </header>
+
   <div class="project-page">
-    <a href="../index.html" class="back-link">
-      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2L4 7l5 5"/></svg>
-      All Work
-    </a>
-    <h1 class="project-title">Usher Superbowl</h1>
-    <p class="project-meta">Apple - #ShotoniPhone</p>
-    <!-- VIDEO: swap this div for a .video-wrap iframe when ready -->
-    <!-- YouTube: <div class="video-wrap"><iframe src="https://www.youtube.com/embed/ID" allowfullscreen></iframe></div> -->
-    <!-- Vimeo:   <div class="video-wrap"><iframe src="https://player.vimeo.com/video/ID" allowfullscreen></iframe></div> -->
-        <div class="video-wrap">
- <iframe width="1095" height="616" src="https://www.youtube.com/embed/hAhaGk33440" title="Apple - Usher Half Time Super Bowl Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
-    <div class="video-wrap">
-  <iframe width="1095" height="616" src="https://www.youtube.com/embed/YZrO8ai56ok" title="Usher Super Bowl Half Time Show Shot on iPhone Case study" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+
+    <div class="project-header">
+      <h1 class="project-title">Prompted.</h1>
+      <p class="project-meta">Get in touch</p>
     </div>
-     <div class="video-wrap vertical">
-<iframe src="https://www.youtube.com/embed/mOgORpzRofY" title="Apple - Usher Super Bowl Half Time Show Teaser" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
-    <p class="project-description empty">Description coming soon</p>
+
+    <div class="contact-grid">
+
+      <a href="mailto:me@seanmobrien.com" class="contact-entry" style="text-decoration:none;">
+        <div class="contact-image placeholder">
+          <span>Email</span>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-label">Direct</div>
+          <div class="contact-entry-title">Say hello.</div>
+          <div class="contact-entry-desc">For work inquiries, collaborations, or just a conversation.</div>
+          <span class="contact-entry-link">me@seanmobrien.com</span>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/seanmobrien" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
+        <div class="contact-image placeholder">
+          <span>LinkedIn</span>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-label">Professional</div>
+          <div class="contact-entry-title">Connect.</div>
+          <div class="contact-entry-desc">Work history, recommendations, and professional updates.</div>
+          <span class="contact-entry-link">linkedin.com/in/seanmobrien</span>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
+        <div class="contact-image placeholder">
+          <span>Instagram</span>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-label">Visual</div>
+          <div class="contact-entry-title">Follow along.</div>
+          <div class="contact-entry-desc">Behind-the-scenes, work in progress, and things that catch my eye.</div>
+          <span class="contact-entry-link">@seanmobrien</span>
+        </div>
+      </a>
+
+      <a href="https://twitter.com/" target="_blank" rel="noopener" class="contact-entry" style="text-decoration:none;">
+        <div class="contact-image placeholder">
+          <span>X / Twitter</span>
+        </div>
+        <div class="contact-entry-meta">
+          <div class="contact-entry-label">Social</div>
+          <div class="contact-entry-title">Join the feed.</div>
+          <div class="contact-entry-desc">Thoughts, links, and things worth sharing.</div>
+          <span class="contact-entry-link">@seanmobrien</span>
+        </div>
+      </a>
+
+    </div>
   </div>
 </body>
 </html>
