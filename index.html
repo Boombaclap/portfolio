@@ -1,208 +1,1021 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sean O'Brien</title>
-  <meta name="description" content="Sean O'Brien — Editor">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sean O'Brien — Senior Creative Editor</title>
+<meta name="description" content="Sean O'Brien — Senior Creative Editor at Media Arts Lab, Los Angeles. Editing is basically everything.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --black: #080808;
+  --dark: #111;
+  --border: rgba(255,255,255,0.07);
+  --muted: rgba(255,255,255,0.38);
+  --soft: rgba(255,255,255,0.65);
+  --white: #f2f0eb;
+  --accent: #c8a96e;
+  --rec: #e0483a;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+::selection{background:var(--accent);color:var(--black);}
+a:focus-visible, button:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px;}
+
+/* PLAYHEAD */
+.playhead{
+  position:fixed;top:0;left:0;height:2px;width:100%;
+  background:var(--accent);transform-origin:left center;transform:scaleX(0);
+  z-index:200;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.55) 0%, rgba(8,8,8,0.22) 45%, transparent 100%);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-right{display:flex;align-items:center;gap:36px;}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--white); }
+.timecode-hud{
+  display:flex;align-items:center;gap:9px;
+  font-family:'DM Mono', monospace;
+  font-size:12px;letter-spacing:0.14em;color:var(--white);
+  font-variant-numeric:tabular-nums;
+}
+.rec-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--rec);
+  box-shadow:0 0 8px rgba(224,72,58,0.8);
+  animation:blink 1.6s steps(2, jump-none) infinite;
+}
+@keyframes blink{50%{opacity:0.25;}}
+@media (prefers-reduced-motion: reduce){ .rec-dot{animation:none;} }
+#timecode{min-width:11ch;text-align:right;}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 72px;
+  background: var(--dark);
+}
+.hero-video {
+  position: absolute;
+  inset: -12% 0;
+  pointer-events: none;
+  overflow: hidden;
+  will-change: transform;
+}
+.hero-video iframe {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 177.78vh;
+  min-width: 100%;
+  height: 56.25vw;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  border: none;
+  opacity: 0.55;
+}
+.hero-scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8,8,8,0.92) 0%,
+    rgba(8,8,8,0.55) 30%,
+    rgba(8,8,8,0.08) 65%,
+    rgba(8,8,8,0.0) 100%
+  );
+  pointer-events: none;
+}
+.hero-rule {
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  width: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 2; will-change: transform, opacity; }
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 7.4vw, 112px);
+  font-weight: 300;
+  line-height: 1.04;
+  margin-bottom: 36px;
+  max-width: 920px;
+}
+.hero-title .line{display:block;overflow:hidden;padding-bottom:0.14em;margin-bottom:-0.14em;}
+.hero-title .line > span{display:block;will-change:transform;}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  flex-wrap: wrap;
+}
+.hero-meta span { display: flex; align-items: center; gap: 10px; }
+.hero-meta span::before {
+  content: '';
+  display: block;
+  width: 20px; height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.scroll-cue {
+  position: absolute;
+  right: 40px; bottom: 72px;
+  writing-mode: vertical-rl;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  text-transform: uppercase;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.scroll-cue::after {
+  content: '';
+  display: block;
+  width: 1px; height: 52px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+/* MARQUEE — scroll-velocity driven */
+.marquee{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:18px 0;
+  overflow:hidden;
+  white-space:nowrap;
+  position:relative;
+}
+.marquee-track{
+  display:inline-flex;
+  gap:0;
+  will-change:transform;
+}
+.marquee-track span{
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(18px,2.2vw,26px);
+  font-weight:300;
+  font-style:italic;
+  color:var(--muted);
+  padding:0 34px;
+  position:relative;
+}
+.marquee-track span::after{
+  content:'·';
+  position:absolute;right:-6px;color:var(--accent);font-style:normal;
+}
+
+/* WORK */
+#work {
+  padding: 100px 40px 110px;
+}
+.work-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+.work-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 300;
+  line-height: 1;
+  will-change: transform;
+}
+.work-title em { font-style: italic; color: var(--accent); }
+.work-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+.project-cell {
+  position: relative;
+  overflow: hidden;
+  background: var(--dark);
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  will-change: transform;
+}
+.project-cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25,1,0.5,1), filter 0.45s ease;
+  filter: brightness(0.82) saturate(0.88);
+  will-change: transform;
+}
+.project-cell:hover img {
+  transform: scale(1.05);
+  filter: brightness(1) saturate(1);
+}
+.project-tc{
+  position:absolute;top:10px;left:12px;
+  font-family:'DM Mono', monospace;
+  font-size:9px;letter-spacing:0.12em;
+  color:rgba(255,255,255,0.55);
+  font-variant-numeric:tabular-nums;
+  opacity:0;transition:opacity 0.3s ease;
+  pointer-events:none;
+  text-shadow:0 1px 4px rgba(0,0,0,0.8);
+}
+.project-cell:hover .project-tc{opacity:1;}
+.project-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 40px 16px 14px;
+  background: linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 100%);
+  transform: translateY(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25,1,0.5,1);
+  pointer-events: none;
+}
+.project-cell:hover .project-label { opacity: 1; transform: none; }
+.project-client {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.project-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.15;
+}
+
+/* ABOUT */
+#about {
+  padding: 120px 40px;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-portrait-wrap { position: sticky; top: 110px; overflow:hidden; }
+.about-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(15%) brightness(0.88);
+  border: 1px solid var(--border);
+  will-change:transform;
+}
+.about-caption {
+  margin-top: 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 36px; height: 1px;
+  background: var(--accent);
+}
+.about-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 3.5vw, 54px);
+  font-weight: 300;
+  line-height: 1.06;
+  margin-bottom: 36px;
+}
+.about-heading em { font-style: italic; color: var(--accent); }
+.about-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--soft);
+  margin-bottom: 22px;
+}
+.about-body strong { color: var(--white); font-weight: 400; }
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 52px;
+  border: 1px solid var(--border);
+}
+.stat { padding: 24px 20px; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+  font-variant-numeric:tabular-nums;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.clients-block { margin-top: 52px; }
+.clients-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.client-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--soft);
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+  transition: border-color 0.25s, color 0.25s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+/* CONTACT */
+#contact {
+  padding: 130px 40px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  position:relative;
+  overflow:hidden;
+}
+.contact-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 5.5vw, 86px);
+  font-weight: 300;
+  line-height: 1.0;
+  margin-bottom: 44px;
+  will-change:transform;
+}
+.contact-heading em { font-style: italic; color: var(--accent); }
+.contact-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--white);
+  display: inline-block;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--black); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--black); }
+.btn.primary:hover { background: transparent; color: var(--accent); }
+
+/* FOOTER */
+footer {
+  padding: 28px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.footer-out{color:var(--rec);}
+.footer-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* FADE-IN (no-JS / reduced-motion fallback uses .in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25,1,0.5,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* MOBILE */
+@media (max-width: 680px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display:none; }
+  .nav-right{gap:0;}
+  .hero { padding: 0 20px 56px; }
+  .hero-rule { display: none; }
+  .scroll-cue { display: none; }
+  #work { padding: 64px 20px 72px; }
+  .project-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  #about { grid-template-columns: 1fr; padding: 64px 20px; gap: 40px; }
+  .about-portrait-wrap { position: static; }
+  #contact { padding: 80px 20px; }
+  footer { padding: 22px 20px; flex-direction: column; text-align: center; }
+}
+
+/* LIGHTBOX */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0;
+  z-index: 1000;
+  background: rgba(8,8,8,0.96);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+}
+.lightbox.open { display: flex; }
+.lightbox-inner {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+}
+.lightbox-video {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #000;
+}
+.lightbox-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.lightbox-no-video {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: rgba(255,255,255,0.4);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.lightbox-meta {
+  margin-top: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.lightbox-client {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.lightbox-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--white);
+}
+.lightbox-close {
+  position: absolute;
+  top: -44px; right: 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.2s;
+}
+.lightbox-close:hover { color: var(--white); }
+</style>
 </head>
-<body>
-  <header>
-    <a href="index.html" class="logo">Sean O'Brien</a>
-    <nav>
-      <a href="about.html">About</a>
-      <a href="index.html" class="active">Work</a>
-      <a href="../contact.html">Prompted</a>   
-    </nav>
-  </header>
-  <main class="grid">
+<body class="no-js">
+<script>document.body.classList.remove('no-js');</script>
 
-    <!-- SLOT 1 — Critter Carol -->
-    <a href="projects/critter-carol.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg" alt="Critter Carol" loading="lazy">
+<div class="playhead" id="playhead" aria-hidden="true"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Sean O'Brien</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="timecode-hud" aria-hidden="true">
+      <span class="rec-dot"></span>
+      <span id="timecode">00:00:00:00</span>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-video" id="heroVideo">
+    <iframe
+      src="https://player.vimeo.com/video/179824744?autoplay=1&muted=1&loop=1&background=1&quality=1080p"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      title="Sean O'Brien Showreel">
+    </iframe>
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-rule"></div>
+  <div class="hero-content" id="heroContent">
+    <p class="hero-eyebrow reveal">Senior Creative Editor — Media Arts Lab</p>
+    <h1 class="hero-title">
+      <span class="line"><span>Editing is basically</span></span>
+      <span class="line"><span><em>everything.</em></span></span>
+    </h1>
+    <div class="hero-meta reveal">
+      <span>Los Angeles, CA</span>
+      <span>20+ Years in the Frame</span>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Apple</span><span>Red Bull</span><span>Vision Pro</span><span>Super Bowl LVIII</span><span>Shot on iPhone</span><span>New Balance</span><span>ESPN</span><span>Shady Records</span><span>Nine Inch Nails</span><span>Chiat\Day</span><span>Visa</span>
+  </div>
+</div>
+
+<section id="work">
+  <div class="work-header">
+    <h2 class="work-title" id="workTitle">Selected <em>Work</em></h2>
+    <span class="work-count">22 Projects</span>
+  </div>
+  <div class="project-grid" id="projectGrid">
+
+    <div class="project-cell" data-video="" data-title="Critter Carol" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg" alt="Critter Carol" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Critter Carol</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Submerged" data-client="Apple Vision Pro">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg" alt="Submerged" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Submerged</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Dua Lipa" data-client="Apple iPhone 17 Pro">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg" alt="Dua Lipa" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple iPhone 17 Pro</p><p class="project-name">Dua Lipa</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Fuzzy Feelings" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_4.jpg" alt="Fuzzy Feelings" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Fuzzy Feelings</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Shot on iPhone" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_6.jpg" alt="Shot on iPhone" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">#ShotoniPhone</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Flight Ready" data-client="Apple Vision Pro">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_3.jpg" alt="Flight Ready" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Flight Ready</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="The Weeknd" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/weekend.png" alt="The Weeknd" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">The Weeknd</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Olivia Rodrigo" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/olivia.jpg" alt="Olivia Rodrigo" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Olivia Rodrigo</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Usher Super Bowl" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/usher.jpg" alt="Usher Super Bowl" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Usher × Super Bowl</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Hollywood in Your Pocket" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/hollywood.png" alt="Hollywood in Your Pocket" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Hollywood in Your Pocket</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Movie Magic" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg" alt="Movie Magic" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Movie Magic</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="On Stage Phoenix" data-client="Live">
+      <img src="https://boombaclap.github.io/portfolio/images/OnStage.jpg" alt="On Stage Phoenix" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Live</p><p class="project-name">On Stage — Phoenix</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Jaden Smith x New Balance" data-client="New Balance">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_14.jpg" alt="Jaden Smith x New Balance" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">New Balance</p><p class="project-name">Jaden Smith × NB</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Testing Action Mode" data-client="Apple">
+      <img src="https://boombaclap.github.io/portfolio/images/PIMG_16.jpg" alt="Testing Action Mode" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Testing Action Mode</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="RacerTrash" data-client="Independent">
+      <img src="https://boombaclap.github.io/portfolio/images/RacerTrash.jpg" alt="RacerTrash" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Independent</p><p class="project-name">RacerTrash</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="After The Raves" data-client="Independent">
+      <img src="https://boombaclap.github.io/portfolio/images/after%20the%20raves.png" alt="After The Raves" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Independent</p><p class="project-name">After The Raves</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Bob Marley Legacy" data-client="Documentary">
+      <img src="https://boombaclap.github.io/portfolio/images/Legacy.jpg" alt="Bob Marley Legacy" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Bob Marley Legacy</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="30 for 30 Friedmans Shoes" data-client="ESPN">
+      <img src="https://boombaclap.github.io/portfolio/images/30For30.jpg" alt="30 for 30 Friedmans Shoes" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">ESPN</p><p class="project-name">30 for 30: Friedman's Shoes</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Ne-Yo Documentary" data-client="Documentary">
+      <img src="https://boombaclap.github.io/portfolio/images/neyo.png" alt="Ne-Yo Documentary" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Ne-Yo Documentary</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Gladiator Cineconcerts" data-client="Cineconcerts">
+      <img src="https://boombaclap.github.io/portfolio/images/Gladiator.jpg" alt="Gladiator Cineconcerts" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Cineconcerts</p><p class="project-name">Gladiator</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="NIN" data-client="Music">
+      <img src="https://boombaclap.github.io/portfolio/images/NIN.jpg" alt="NIN" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Music</p><p class="project-name">NIN — After All Is Said And Done</p></div>
+    </div>
+
+    <div class="project-cell" data-video="" data-title="Shady Records Bright Lights" data-client="Shady Records">
+      <img src="https://boombaclap.github.io/portfolio/images/bl.jpg" alt="Shady Records Bright Lights" loading="lazy">
+      <span class="project-tc"></span>
+      <div class="project-label"><p class="project-client">Shady Records</p><p class="project-name">Bright Lights</p></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-portrait-wrap reveal">
+    <img class="about-portrait" id="portrait" src="https://www.seanmobrien.com/images/sean.gif" alt="Sean O'Brien">
+    <p class="about-caption">Sean O'Brien — Los Angeles</p>
+  </div>
+  <div class="about-text">
+    <div class="section-eyebrow reveal">About</div>
+    <h2 class="about-heading reveal">Started with a<br><em>projector.</em><br>Ended at Apple.</h2>
+    <p class="about-body reveal">Started as a projectionist convincing coworkers to make short films while saving up for Film School. Worth it.</p>
+    <p class="about-body reveal">Cut my teeth at my first agency gig as an editor and motion designer, then moved up to <strong>Head of Video Integration</strong> — Bacardi and Howard Stern campaigns, late nights, impossible deadlines, zero complaints.</p>
+    <p class="about-body reveal">Packed up and moved to LA. Found my people fast — writers, directors, troublemakers — and got to work. Traveled the world with <strong>Red Bull</strong> and <strong>SPEED</strong>. Picked up a job at Chiat\Day on Visa and Nissan, then started my own company.</p>
+    <p class="about-body reveal">Currently at <strong>Media Arts Lab</strong>, serving as Senior Creative Editor — crafting the visual and social voice of the world's most loved brand.</p>
+    <div class="stats-row reveal">
+      <div class="stat"><div class="stat-num" data-count="20" data-suffix="+">0+</div><div class="stat-label">Years editing</div></div>
+      <div class="stat"><div class="stat-num" data-count="22">0</div><div class="stat-label">Projects shown</div></div>
+      <div class="stat"><div class="stat-num">&#8734;</div><div class="stat-label">Late nights</div></div>
+    </div>
+    <div class="clients-block reveal">
+      <div class="clients-label">Clients &amp; Collaborators</div>
+      <div class="client-chips">
+        <span class="chip">Apple</span><span class="chip">Red Bull</span><span class="chip">TBWA\Media Arts Lab</span><span class="chip">Chiat\Day</span><span class="chip">Waze</span><span class="chip">Royal Caribbean</span><span class="chip">Bacardi</span><span class="chip">New Balance</span><span class="chip">ESPN</span><span class="chip">Shady Records</span><span class="chip">Howard Stern</span><span class="chip">Visa</span><span class="chip">Nissan</span>
       </div>
-      <div class="card-label">Apple - Critter Carol</div>
-    </a>
+    </div>
+  </div>
+</section>
 
-    <!-- SLOT 2 — Submerged -->
-    <a href="projects/submerged.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg" alt="Submerged" loading="lazy">
-      </div>
-      <div class="card-label">Apple Vision Pro - Submerged</div>
-    </a>
+<section id="contact">
+  <div class="section-eyebrow reveal" style="justify-content:center;margin-bottom:36px;">Get in Touch</div>
+  <h2 class="contact-heading reveal" id="contactHeading">Let's make something<br><em>unforgettable</em></h2>
+  <div class="contact-buttons reveal">
+    <a href="mailto:me@seanmobrien.com" class="btn primary">me@seanmobrien.com</a>
+    <a href="https://www.linkedin.com/in/seanmobrien1" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+  </div>
+</section>
 
-       <!-- SLOT 4 — Dua Lipa -->
-    <a href="projects/dua-lipa.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg" alt="Dua Lipa" loading="lazy">
-      </div>
-      <div class="card-label">Apple iPhone 17 Pro Launch - Dua Lipa</div>
-    </a>
+<footer>
+  <span class="footer-text">&#169; 2026 Sean O'Brien</span>
+  <span class="footer-role">Senior Creative Editor, Media Arts Lab</span>
+  <span class="footer-text footer-out" id="outTC">OUT 00:02:34:00</span>
+</footer>
 
-  
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lbClose">&#x2715; Close</button>
+    <div class="lightbox-video" id="lbVideo"></div>
+    <div class="lightbox-meta">
+      <span class="lightbox-client" id="lbClient"></span>
+      <span class="lightbox-title" id="lbTitle"></span>
+    </div>
+  </div>
+</div>
 
- 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP = !!(window.gsap && window.ScrollTrigger);
 
-    <!-- SLOT 5 — Fuzzy Feelings -->
-    <a href="projects/fuzzy-feelings.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_4.jpg" alt="Fuzzy Feelings" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Fuzzy Feelings</div>
-    </a>
+  /* ============ TIMECODE: scroll = scrub ============ */
+  var FPS = 24;
+  var TOTAL_FRAMES = (2*60 + 34) * FPS; // OUT 00:02:34:00
+  var tcEl = document.getElementById('timecode');
+  var playhead = document.getElementById('playhead');
+  function pad2(n){ return n < 10 ? '0'+n : ''+n; }
+  function formatTC(frames){
+    frames = Math.max(0, Math.min(TOTAL_FRAMES, Math.round(frames)));
+    var f = frames % FPS;
+    var s = Math.floor(frames / FPS);
+    var m = Math.floor(s / 60); s = s % 60;
+    var h = Math.floor(m / 60); m = m % 60;
+    return pad2(h)+':'+pad2(m)+':'+pad2(s)+':'+pad2(f);
+  }
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? (window.scrollY || window.pageYOffset) / max : 0;
+      p = Math.max(0, Math.min(1, p));
+      tcEl.textContent = formatTC(p * TOTAL_FRAMES);
+      playhead.style.transform = 'scaleX(' + p + ')';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
 
-    <!-- SLOT 6 — @Apple Commissions -->
-    <a href="projects/apple-commissions.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_6.jpg" alt="@Apple Commissions" loading="lazy">
-      </div>
-      <div class="card-label">Apple - #ShotoniPhone</div>
-    </a>
+  /* Per-cell IN timecodes — sequence encoded across the grid */
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.project-cell'));
+  cells.forEach(function(cell, i){
+    var tc = cell.querySelector('.project-tc');
+    if (tc) tc.textContent = formatTC((i + 1) * (TOTAL_FRAMES / (cells.length + 2)));
+  });
 
-        <!-- SLOT 6 — Spatial Gallery -->
-    <a href="projects/spatial.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/spatial.png" alt="Spatial Gallery" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Spatial Gallery</div>
-    </a>
+  /* ============ REVEAL FALLBACK (no GSAP / reduced motion) ============ */
+  function basicReveals(){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    },{threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    document.querySelectorAll('.hero .reveal').forEach(function(el,i){
+      setTimeout(function(){ el.classList.add('in'); }, 150+i*180);
+    });
+    // restore static stat numbers
+    document.querySelectorAll('.stat-num[data-count]').forEach(function(el){
+      el.textContent = el.dataset.count + (el.dataset.suffix || '');
+    });
+  }
 
-      <!-- SLOT 3 — Flight Ready -->
-    <a href="projects/flight-ready.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_3.jpg" alt="Flight Ready" loading="lazy">
-      </div>
-      <div class="card-label">Apple Vision Pro - Flight Ready</div>
-    </a>
+  /* ============ GSAP: load + parallax system ============ */
+  if (hasGSAP && !reduced) {
+    gsap.registerPlugin(ScrollTrigger);
 
-      <!-- SLOT 9 — Apple - The Weekend -->
-    <a href="projects/weekend.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/weekend.png" alt="The Weekend" loading="lazy">
-      </div>
-      <div class="card-label">Apple - The Weeknd</div>
-    </a>
+    /* --- Hero load: title lines rise out of masks, then eyebrow/meta --- */
+    gsap.set('.hero-title .line > span', {yPercent: 110});
+    var intro = gsap.timeline({delay: 0.2});
+    intro
+      .to('.hero-title .line > span', {yPercent: 0, duration: 1.15, ease: 'power4.out', stagger: 0.12})
+      .to('.hero .reveal', {opacity:1, y:0, duration:0.8, ease:'power3.out', stagger:0.12}, '-=0.7');
 
-                        <!-- SLOT 9 — Apple - Olivia Rodrigo -->
-    <a href="projects/olivia.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/olivia.jpg" alt="Olivia Rodrigo" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Olivia Rodrigo</div>
-    </a>
+    /* Timecode warm-up tick */
+    var warm = {f:0};
+    gsap.to(warm, {f:24, duration:1, ease:'power2.out', onUpdate:function(){
+      if ((window.scrollY||0) < 4) tcEl.textContent = formatTC(warm.f);
+    }});
 
-                            <!-- SLOT 9 — Apple - Usher Superbowl -->
-    <a href="projects/usher.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/usher.jpg" alt="Usher Superbowl" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Usher Superbowl</div>
-    </a>
+    /* --- Hero parallax exit: video sinks slower, content lifts & fades --- */
+    gsap.to('#heroVideo', {
+      yPercent: 16, scale: 1.08, ease: 'none',
+      scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}
+    });
+    gsap.to('#heroContent', {
+      yPercent: -34, opacity: 0.15, ease: 'none',
+      scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}
+    });
 
-        <!-- SLOT 9 — Apple - Hollywood In Your Pocket -->
-    <a href="projects/hollywood.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/hollywood.png" alt="Movie Magic" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Hollywood In Your Pocket</div>
-    </a>
+    /* --- Marquee: constant drift, accelerated by scroll velocity --- */
+    var track = document.getElementById('marqueeTrack');
+    track.innerHTML += track.innerHTML; // duplicate for seamless loop
+    var marqueeTween = gsap.to(track, {xPercent: -50, repeat: -1, duration: 38, ease: 'none'});
+    ScrollTrigger.create({
+      onUpdate: function(self){
+        var v = Math.min(Math.abs(self.getVelocity()) / 250, 5);
+        gsap.to(marqueeTween, {timeScale: 1 + v, duration: 0.5, overwrite: true});
+      }
+    });
 
-            <!-- SLOT 9 — Apple - Movie Magic -->
-    <a href="projects/movie-magic.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg" alt="Movie Magic" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Movie Magic</div>
-    </a>
+    /* --- Work title drifts in from the left as the section arrives --- */
+    gsap.fromTo('#workTitle', {x: -60, opacity: 0}, {
+      x: 0, opacity: 1, ease: 'none',
+      scrollTrigger: {trigger: '#work', start: 'top 92%', end: 'top 55%', scrub: true}
+    });
 
-    <!-- SLOT 7 — On Stage – Phoenix -->
-    <a href="projects/on-stage-phoenix.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/OnStage.jpg" alt="On Stage – Phoenix" loading="lazy">
-      </div>
-      <div class="card-label">On Stage – Phoenix</div>
-    </a>
+    /* --- Project grid: clip reveal on enter (cells stay flush — no drift) --- */
+    cells.forEach(function(cell, i){
+      gsap.fromTo(cell, {clipPath: 'inset(12% 6% 12% 6%)', opacity: 0}, {
+        clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: {trigger: cell, start: 'top 92%', once: true}
+      });
+      gsap.fromTo(cell.querySelector('img'), {scale: 1.18}, {
+        scale: 1, duration: 1.2, ease: 'power3.out',
+        scrollTrigger: {trigger: cell, start: 'top 92%', once: true}
+      });
+    });
 
-    <!-- SLOT 8 — Jaden Smith X NB -->
-    <a href="projects/jaden-smith-nb.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_14.jpg" alt="Jaden Smith X NB" loading="lazy">
-      </div>
-      <div class="card-label">Jaden Smith X New Balance</div>
-    </a>
+    /* --- About: portrait parallax inside its frame + reveals --- */
+    gsap.fromTo('#portrait', {y: -22, scale: 1.06}, {
+      y: 22, scale: 1.06, ease: 'none',
+      scrollTrigger: {trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true}
+    });
+    gsap.utils.toArray('#about .reveal, #contact .reveal').forEach(function(el){
+      gsap.fromTo(el, {opacity: 0, y: 26}, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: {trigger: el, start: 'top 90%', once: true}
+      });
+    });
 
+    /* --- Stat count-up --- */
+    gsap.utils.toArray('.stat-num[data-count]').forEach(function(el){
+      var target = parseInt(el.dataset.count, 10);
+      var suffix = el.dataset.suffix || '';
+      var obj = {n: 0};
+      gsap.to(obj, {
+        n: target, duration: 1.4, ease: 'power2.out',
+        scrollTrigger: {trigger: el, start: 'top 92%', once: true},
+        onUpdate: function(){ el.textContent = Math.round(obj.n) + suffix; }
+      });
+    });
 
+    /* --- Contact heading: gentle scale-in scrub --- */
+    gsap.fromTo('#contactHeading', {scale: 0.92, opacity: 0.4}, {
+      scale: 1, opacity: 1, ease: 'none',
+      scrollTrigger: {trigger: '#contact', start: 'top 95%', end: 'top 40%', scrub: true}
+    });
 
-    <!-- SLOT 10 — Testing Action Mode -->
-    <a href="projects/testing-action-mode.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/PIMG_16.jpg" alt="Testing Action Mode" loading="lazy">
-      </div>
-      <div class="card-label">Apple - Testing Action Mode</div>
-    </a>
+    /* mark hero reveals as handled */
+    document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('in'); });
 
-    <!-- SLOT 11 — Racer Trash -->
-    <a href="projects/rap-life.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/RacerTrash.jpg" alt="Racer Trash" loading="lazy">
-      </div>
-      <div class="card-label">RacerTrash</div>
-    </a>
+  } else {
+    /* Reduced motion or GSAP failed to load */
+    document.querySelectorAll('.hero-title .line > span').forEach(function(el){ el.style.transform = 'none'; });
+    basicReveals();
+  }
 
-    <!-- SLOT 12 — After The Raves -->
-    <a href="projects/after-the-raves.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/after the raves.png" alt="After The Raves" loading="lazy">
-      </div>
-      <div class="card-label">After The Raves</div>
-    </a>
+  /* ============ LIGHTBOX ============ */
+  var lb      = document.getElementById('lightbox');
+  var lbVideo = document.getElementById('lbVideo');
+  var lbTitle = document.getElementById('lbTitle');
+  var lbClient= document.getElementById('lbClient');
+  var lbClose = document.getElementById('lbClose');
 
-    <!-- SLOT 13 — Bob Marley Legacy -->
-    <a href="projects/bob-marley-legacy.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/Legacy.jpg" alt="Bob Marley Legacy" loading="lazy">
-      </div>
-      <div class="card-label">Bob Marley Legacy</div>
-    </a>
-
-    <!-- SLOT 14 — 30 for 30: Friedman's Shoes -->
-    <a href="projects/friedmans-shoes.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/30For30.jpg" alt="30 for 30: Friedman's Shoes" loading="lazy">
-      </div>
-      <div class="card-label">30 for 30: Friedman's Shoes</div>
-    </a>
-
-    <!-- SLOT 15 — Ne-Yo Documentary -->
-    <a href="projects/neyo.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/neyo.png" alt="Ne-Yo Documentary" loading="lazy">
-      </div>
-      <div class="card-label">Ne-Yo Documentary</div>
-    </a>
-
-        <!-- SLOT 16 — Gladiator - Cineconcerts -->
-    <a href="projects/gladiator.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/Gladiator.jpg" alt="Gladiator" loading="lazy">
-      </div>
-      <div class="card-label">Gladiator - Cineconcerts</div>
-    </a>
-
-           <!-- SLOT 17 — NIN - After All Is Said And Done -->
-    <a href="projects/NIN.html" class="project-card">
-      <div class="thumb-wrap">
-        <img src="https://boombaclap.github.io/portfolio/images/NIN.jpg" alt="NIN" loading="lazy">
-      </div>
-      <div class="card-label">NIN - After All Is Said And Done</div>
-    </a>
-
-  </main>
+  function openLightbox(cell) {
+    var vid    = cell.dataset.video;
+    var title  = cell.dataset.title  || '';
+    var client = cell.dataset.client || '';
+    lbTitle.textContent  = title;
+    lbClient.textContent = client;
+    if (vid) {
+      lbVideo.innerHTML = '<iframe src="https://player.vimeo.com/video/' + vid + '?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    } else {
+      lbVideo.innerHTML = '<div class="lightbox-no-video"><span>Video coming soon</span><span style="font-size:9px;opacity:0.5">Add Vimeo ID via data-video attribute</span></div>';
+    }
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lbVideo.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+  cells.forEach(function(cell){
+    cell.addEventListener('click', function(){ openLightbox(cell); });
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
+})();
+</script>
 </body>
 </html>
