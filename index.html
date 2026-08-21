@@ -364,7 +364,6 @@ nav > * { position: relative; z-index: 1; }
   font-size: 15px;
   line-height: 1.75;
   color: var(--soft);
-  max-width: 560px;
 }
 
 .entries-grid {
@@ -402,6 +401,39 @@ nav > * { position: relative; z-index: 1; }
   color: var(--muted);
   line-height: 1.7;
   letter-spacing: 0.01em;
+}
+
+/* Image-link variant — for experiments hosted as their own site
+   rather than a video (e.g. a live web build). */
+.entry-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.entry-link .video-wrap { cursor: pointer; }
+.entry-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.25,1,0.5,1), filter 0.45s ease;
+  filter: brightness(0.82) saturate(0.88);
+}
+.entry-link:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.97) saturate(1);
+}
+.entry-link .entry-desc { color: var(--muted); transition: color 0.25s; }
+.entry-link:hover .entry-desc { color: var(--accent); }
+.entry-visit {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 8px;
 }
 
 /* CONTACT */
@@ -760,11 +792,20 @@ footer {
 
 <section id="prompted">
   <div class="prompted-header reveal">
-    <h2 class="prompted-title">Prompted <em>Experiments</em></h2>
+    <h2 class="prompted-title">Prompted</h2>
     <p class="prompted-sub">A collection of generative AI and code experiments. No clients. No deadlines. Pure creative.</p>
   </div>
 
   <div class="entries-grid">
+
+    <a class="entry entry-link reveal" href="https://handmask.vercel.app" target="_blank" rel="noopener" aria-label="HandMask — visit site">
+      <div class="video-wrap">
+        <img src="https://raw.githubusercontent.com/Boombaclap/portfolio/main/images/handmask.jpg" alt="HandMask" loading="lazy">
+      </div>
+      <div class="entry-meta">
+        <div class="entry-desc">HandMask — an interactive generative experiment, live at handmask.vercel.app.<span class="entry-visit">Visit site →</span></div>
+      </div>
+    </a>
 
     <div class="entry reveal">
       <div class="video-wrap">
@@ -807,7 +848,7 @@ footer {
         </iframe>
       </div>
       <div class="entry-meta">
-        <div class="entry-desc">Ever wonder what Slipknot's debut album would sound like with the raw soulful power of Robert Johnson's Delta Blues? Me too! So I made a whole album.</div>
+        <div class="entry-desc">Ever wonder what Slipknot's debut album would sound like with the soulful power of Robert Johnson's Delta Blues? Me too! So I made a whole album.</div>
       </div>
     </div>
 
