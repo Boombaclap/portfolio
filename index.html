@@ -106,8 +106,8 @@ nav > * { position: relative; z-index: 1; }
    with the logo or links at narrower widths. */
 .timecode-pill {
   position: fixed;
-  top: 78px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   z-index: 99;
   padding: 8px 16px;
   border-radius: 20px;
@@ -124,13 +124,31 @@ nav > * { position: relative; z-index: 1; }
   align-items: center;
   gap: 6px;
   white-space: nowrap;
-  pointer-events: none;
+  cursor: pointer;
+  text-decoration: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.timecode-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.timecode-pill:hover {
+  border-color: rgba(200,169,110,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.4);
 }
 .timecode-pill .tc-dot {
   width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
+}
+.timecode-pill:hover .tc-dot { animation: tcPulse 1s ease-in-out infinite; }
+@keyframes tcPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 .timecode-pill .tc-current { color: var(--soft); }
 .timecode-pill .tc-sep { color: var(--muted); opacity: 0.5; }
@@ -543,7 +561,7 @@ footer {
 @media (max-width: 680px) {
   nav { top: 12px; left: 12px; right: 12px; padding: 14px 18px; }
   .nav-links { gap: 20px; }
-  .timecode-pill { top: 66px; right: 12px; font-size: 9px; padding: 6px 14px; }
+  .timecode-pill { bottom: 16px; right: 16px; font-size: 9px; padding: 6px 14px; }
   .hero { padding: 0 20px 56px; }
   .scroll-cue { display: none; }
   #work { padding: 64px 20px 0; }
@@ -674,12 +692,12 @@ footer {
   </ul>
 </nav>
 
-<div class="timecode-pill" id="navTimecode" aria-hidden="true">
+<button type="button" class="timecode-pill" id="navTimecode" aria-label="Play demo reel">
   <span class="tc-dot"></span>
   <span class="tc-current">00:00</span>
   <span class="tc-sep">/</span>
-  <span class="tc-total">01:00</span>
-</div>
+  <span class="tc-total">00:53</span>
+</button>
 
 <section class="hero">
   <div class="hero-video">
@@ -934,13 +952,28 @@ footer {
   <span class="footer-text">Los Angeles, CA</span>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lbClose">&#x2715; Close</button>
+    <div class="lightbox-video" id="lbVideo"></div>
+    <div class="lightbox-meta">
+      <span class="lightbox-client" id="lbClient"></span>
+      <span class="lightbox-title" id="lbTitle"></span>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   // Timecode readout — maps scroll progress (0 to 100% of the page)
-  // onto a fake 5:00 runtime, ticking forward like a video scrubber.
+  // onto a fake 0:53 runtime, ticking forward like a video scrubber.
+  // Doubles as a hidden trigger for the demo reel: clicking it opens
+  // the reel in the same lightbox the project grid uses.
   var tcCurrent = document.querySelector('#navTimecode .tc-current');
+  var timecodeBtn = document.getElementById('navTimecode');
   if (tcCurrent) {
-    var TOTAL_SECONDS = 60; // 01:00
+    var TOTAL_SECONDS = 53; // 00:53
     var format = function(sec) {
       sec = Math.max(0, Math.min(TOTAL_SECONDS, Math.round(sec)));
       var m = Math.floor(sec / 60);
@@ -956,6 +989,12 @@ footer {
     window.addEventListener('scroll', updateTimecode, { passive: true });
     window.addEventListener('resize', updateTimecode, { passive: true });
     updateTimecode();
+  }
+
+  if (timecodeBtn) {
+    timecodeBtn.addEventListener('click', function(){
+      openLightbox({ dataset: { video: '1219937345', title: 'Demo Reel', client: "Sean O'Brien" } });
+    });
   }
 
   // Reveal on scroll. Tiles in the work grid get a light stagger
@@ -1036,18 +1075,6 @@ footer {
   });
 })();
 </script>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-  <div class="lightbox-inner">
-    <button class="lightbox-close" id="lbClose">&#x2715; Close</button>
-    <div class="lightbox-video" id="lbVideo"></div>
-    <div class="lightbox-meta">
-      <span class="lightbox-client" id="lbClient"></span>
-      <span class="lightbox-title" id="lbTitle"></span>
-    </div>
-  </div>
-</div>
 
 </body>
 </html>
