@@ -345,50 +345,64 @@ nav > * { position: relative; z-index: 1; }
   margin-bottom: 22px;
 }
 .about-body strong { color: var(--white); font-weight: 400; }
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 52px;
-  border: 1px solid var(--border);
+
+/* PROMPTED — AI experiments, integrated as its own section */
+#prompted {
+  padding: 120px 40px 0;
+  border-top: 1px solid var(--border);
 }
-.stat { padding: 24px 20px; border-right: 1px solid var(--border); }
-.stat:last-child { border-right: none; }
-.stat-num {
+.prompted-header { margin-bottom: 56px; }
+.prompted-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 44px;
+  font-size: clamp(36px, 4.5vw, 64px);
   font-weight: 300;
-  color: var(--accent);
   line-height: 1;
-  margin-bottom: 6px;
-}
-.stat-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-.clients-block { margin-top: 52px; }
-.clients-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-  text-transform: uppercase;
   margin-bottom: 18px;
 }
-.client-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  font-weight: 300;
+.prompted-title em { font-style: italic; color: var(--accent); }
+.prompted-sub {
+  font-size: 15px;
+  line-height: 1.75;
   color: var(--soft);
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  letter-spacing: 0.02em;
-  transition: border-color 0.25s, color 0.25s;
+  max-width: 560px;
 }
-.chip:hover { border-color: var(--accent); color: var(--accent); }
+
+.entries-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+}
+.entry {
+  display: flex;
+  flex-direction: column;
+  background: var(--dark);
+}
+.video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+.video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.entry-meta {
+  padding: 18px 22px 30px;
+  border-top: 1px solid var(--border);
+}
+.entry-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
 
 /* CONTACT */
 #contact {
@@ -463,6 +477,8 @@ footer {
   .project-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
   #about { grid-template-columns: 1fr; padding: 64px 20px; gap: 40px; }
   .about-portrait-wrap { position: static; }
+  #prompted { padding: 64px 20px 0; }
+  .entries-grid { grid-template-columns: 1fr; }
   #contact { padding: 80px 20px; }
   footer { padding: 22px 20px; flex-direction: column; text-align: center; }
 }
@@ -580,6 +596,7 @@ footer {
   <ul class="nav-links">
     <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#prompted">Prompted</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -738,17 +755,77 @@ footer {
     <p class="about-body reveal">Cut my teeth at my first agency gig as an editor and motion designer, then moved up to <strong>Head of Video Integration</strong> — Bacardi and Howard Stern campaigns, late nights, impossible deadlines, zero complaints.</p>
     <p class="about-body reveal">Packed up and moved to LA. Found my people fast — writers, directors, troublemakers — and got to work. Traveled the world with <strong>Red Bull</strong> and <strong>SPEED</strong>. Picked up a job at Chiat\Day on Visa and Nissan, then started my own company.</p>
     <p class="about-body reveal">Currently at <strong>Media Arts Lab</strong>, serving as Senior Creative Editor — crafting the visual and social voice of the world's most loved brand.</p>
-    <div class="stats-row reveal">
-      <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Years editing</div></div>
-      <div class="stat"><div class="stat-num">22</div><div class="stat-label">Projects shown</div></div>
-      <div class="stat"><div class="stat-num">&#8734;</div><div class="stat-label">Late nights</div></div>
-    </div>
-    <div class="clients-block reveal">
-      <div class="clients-label">Clients &amp; Collaborators</div>
-      <div class="client-chips">
-        <span class="chip">Apple</span><span class="chip">Red Bull</span><span class="chip">TBWA\Media Arts Lab</span><span class="chip">Chiat\Day</span><span class="chip">Waze</span><span class="chip">Royal Caribbean</span><span class="chip">Bacardi</span><span class="chip">New Balance</span><span class="chip">ESPN</span><span class="chip">Shady Records</span><span class="chip">Howard Stern</span><span class="chip">Visa</span><span class="chip">Nissan</span>
+  </div>
+</section>
+
+<section id="prompted">
+  <div class="prompted-header reveal">
+    <h2 class="prompted-title">Prompted <em>Experiments</em></h2>
+    <p class="prompted-sub">A collection of generative AI and code experiments. No clients. No deadlines. Pure creative.</p>
+  </div>
+
+  <div class="entries-grid">
+
+    <div class="entry reveal">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/RxFk3SxIflE"
+          title="Hansel & Gretel 2049"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="entry-meta">
+        <div class="entry-desc">HANSEL &amp; GRETEL 2049 | Official AI Trailer</div>
       </div>
     </div>
+
+    <div class="entry reveal">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/-bGCdBflcbk"
+          title="Short Film"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="entry-meta">
+        <div class="entry-desc">Short film developed by a small team of creatives pushing the limits of what generative is capable of in 2025.</div>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/Vs02wnl1Fxg"
+          title="Slipknot Meets Robert Johnson"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="entry-meta">
+        <div class="entry-desc">Ever wonder what Slipknot's debut album would sound like with the raw soulful power of Robert Johnson's Delta Blues? Me too! So I made a whole album.</div>
+      </div>
+    </div>
+
+    <div class="entry reveal">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/IdmvJMp7ZnU"
+          title="PawsiblyAI"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="entry-meta">
+        <div class="entry-desc">PawsiblyAI — an AI-generated dog content channel, built out as a running experiment in character consistency and short-form storytelling.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
