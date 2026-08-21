@@ -57,25 +57,26 @@ body {
 
 /* NAV */
 nav {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: fixed; top: 20px; left: 20px; right: 20px;
   z-index: 100;
-  padding: 24px 40px;
+  padding: 16px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: transparent;
 }
-/* The bar itself lives on a pseudo-element so the blur can fade out
-   at the bottom edge without also fading the logo and links. */
+/* Floating glass bar with a crisp, defined edge — heavier blur so
+   it reads as a distinct surface, similar to native video controls. */
 nav::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(8,8,8,0.55);
-  -webkit-backdrop-filter: blur(16px) saturate(1.15);
-  backdrop-filter: blur(16px) saturate(1.15);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.45) 84%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.45) 84%, transparent 100%);
+  border-radius: 14px;
+  background: rgba(20,20,20,0.62);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255,255,255,0.09);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
   pointer-events: none;
 }
 nav > * { position: relative; z-index: 1; }
@@ -454,7 +455,7 @@ footer {
 
 /* MOBILE */
 @media (max-width: 680px) {
-  nav { padding: 18px 20px; }
+  nav { top: 12px; left: 12px; right: 12px; padding: 14px 18px; }
   .nav-links { gap: 20px; }
   .hero { padding: 0 20px 56px; }
   .scroll-cue { display: none; }
