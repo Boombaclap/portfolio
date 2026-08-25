@@ -290,6 +290,10 @@ nav > * { position: relative; z-index: 1; }
   overflow: hidden;
   background: var(--dark);
   aspect-ratio: 16 / 9;
+  /* Some cells are <a> elements (link-outs) — keep them visually
+     identical to the <div> cells. */
+  text-decoration: none;
+  color: inherit;
 }
 .project-cell img {
   display: block;
@@ -314,10 +318,13 @@ nav > * { position: relative; z-index: 1; }
   transform: scale(1.04);
   filter: brightness(0.97) saturate(1);
 }
-/* Tiles that open a video get a click target and a quiet play glyph so
-   they read as interactive; the rest of the grid stays decorative. */
-.project-cell.has-video { cursor: pointer; }
-.project-cell.has-video::after {
+/* Tiles that open a video or link out get a click target and a quiet
+   badge so they read as interactive; the rest of the grid stays
+   decorative. Video tiles get a play triangle, link tiles an arrow. */
+.project-cell.has-video,
+.project-cell.has-link { cursor: pointer; }
+.project-cell.has-video::after,
+.project-cell.has-link::after {
   content: '';
   position: absolute;
   top: 50%; left: 50%;
@@ -344,8 +351,24 @@ nav > * { position: relative; z-index: 1; }
   pointer-events: none;
   z-index: 1;
 }
+.project-cell.has-link::before {
+  content: '\2197'; /* north-east arrow */
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  line-height: 1;
+  color: rgba(255,255,255,0.85);
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.25,1,0.5,1), color 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
 .project-cell.has-video:hover::after,
-.project-cell.has-video:focus-visible::after {
+.project-cell.has-video:focus-visible::after,
+.project-cell.has-link:hover::after,
+.project-cell.has-link:focus-visible::after {
   opacity: 1;
   transform: scale(1.08);
   border-color: var(--accent);
@@ -355,6 +378,12 @@ nav > * { position: relative; z-index: 1; }
   opacity: 1;
   transform: scale(1.08);
   border-left-color: var(--accent);
+}
+.project-cell.has-link:hover::before,
+.project-cell.has-link:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+  color: var(--accent);
 }
 .project-label {
   position: absolute;
@@ -800,30 +829,53 @@ footer {
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Critter Carol</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Submerged"
+         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/submerged_trailer.mp4"
+         data-poster="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg"
+         data-title="Submerged"
+         data-client="Apple Vision Pro">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg" alt="Submerged" loading="lazy">
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Submerged</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Dua Lipa"
+         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/dua_smart.mp4"
+         data-poster="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg"
+         data-title="Dua Lipa"
+         data-client="Apple iPhone 17 Pro">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg" alt="Dua Lipa" loading="lazy">
       <div class="project-label"><p class="project-client">Apple iPhone 17 Pro</p><p class="project-name">Dua Lipa</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Fuzzy Feelings BTS"
+         data-video="1185353789"
+         data-title="Fuzzy Feelings — BTS"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_4.jpg" alt="Fuzzy Feelings" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Fuzzy Feelings</p></div>
     </div>
 
-    <div class="project-cell crop-fix reveal">
+    <a class="project-cell crop-fix has-link reveal"
+       href="https://www.instagram.com/apple/"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="#ShotoniPhone on Apple's Instagram (opens in a new tab)">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_6.jpg" alt="Shot on iPhone" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">#ShotoniPhone</p></div>
-    </div>
+    </a>
 
-    <div class="project-cell reveal">
+    <a class="project-cell has-link reveal"
+       href="https://tv.apple.com/us/movie/flight-ready/umc.cmc.3z7h8273r7myfxlvpjt17futm"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Flight Ready on Apple TV (opens in a new tab)">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_3.jpg" alt="Flight Ready" loading="lazy">
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Flight Ready</p></div>
-    </div>
+    </a>
 
     <div class="project-cell reveal">
       <img src="https://boombaclap.github.io/portfolio/images/weekend.png" alt="The Weeknd" loading="lazy">
