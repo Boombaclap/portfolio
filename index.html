@@ -314,6 +314,48 @@ nav > * { position: relative; z-index: 1; }
   transform: scale(1.04);
   filter: brightness(0.97) saturate(1);
 }
+/* Tiles that open a video get a click target and a quiet play glyph so
+   they read as interactive; the rest of the grid stays decorative. */
+.project-cell.has-video { cursor: pointer; }
+.project-cell.has-video::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 54px; height: 54px;
+  margin: -27px 0 0 -27px;
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 50%;
+  background: rgba(8,8,8,0.28);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.25,1,0.5,1), border-color 0.3s ease;
+  pointer-events: none;
+}
+.project-cell.has-video::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: -7px 0 0 -3px;
+  width: 0; height: 0;
+  border-left: 11px solid rgba(255,255,255,0.85);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.25,1,0.5,1), border-left-color 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.project-cell.has-video:hover::after,
+.project-cell.has-video:focus-visible::after {
+  opacity: 1;
+  transform: scale(1.08);
+  border-color: var(--accent);
+}
+.project-cell.has-video:hover::before,
+.project-cell.has-video:focus-visible::before {
+  opacity: 1;
+  transform: scale(1.08);
+  border-left-color: var(--accent);
+}
 .project-label {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -611,6 +653,17 @@ footer {
   width: 100%; height: 100%;
   border: none;
 }
+/* Self-hosted MP4s play in a native <video> rather than a Vimeo iframe.
+   contain (not cover) so nothing gets cropped if the file isn't 16:9. */
+.lightbox-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  background: #000;
+  border: none;
+  display: block;
+}
 .lightbox-no-video {
   position: absolute;
   inset: 0;
@@ -736,7 +789,13 @@ footer {
   </div>
   <div class="project-grid">
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Critter Carol"
+         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/USEN_GOODLUCK5_VIDEO_169AR_3m14s_ASGO_CMRA_NONCARRIER_WM_TWTT_AMAD0327292H_1.mp4"
+         data-poster="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg"
+         data-title="Critter Carol"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg" alt="Critter Carol" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Critter Carol</p></div>
     </div>
@@ -1044,11 +1103,30 @@ footer {
 
   function openLightbox(cell) {
     var vid    = cell.dataset.video;
+    var src    = cell.dataset.videoSrc;
+    var poster = cell.dataset.poster;
     var title  = cell.dataset.title  || '';
     var client = cell.dataset.client || '';
     lbTitle.textContent  = title;
     lbClient.textContent = client;
-    if (vid) {
+    if (src) {
+      // Self-hosted file: native player. The poster keeps the tile image
+      // on screen while the first frames buffer instead of flashing black.
+      var v = document.createElement('video');
+      v.src = src;
+      if (poster) v.poster = poster;
+      v.controls = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      v.preload = 'auto';
+      v.setAttribute('controlsList', 'nodownload');
+      lbVideo.innerHTML = '';
+      lbVideo.appendChild(v);
+      // Some browsers block autoplay with sound; fall back to the poster
+      // plus controls rather than leaving a dead frame.
+      var attempt = v.play();
+      if (attempt && attempt.catch) attempt.catch(function(){});
+    } else if (vid) {
       lbVideo.innerHTML = '<iframe src="https://player.vimeo.com/video/' + vid + '?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     } else {
       lbVideo.innerHTML = '<div class="lightbox-no-video"><span>Video coming soon</span><span style="font-size:9px;opacity:0.5">Add Vimeo ID via data-video attribute</span></div>';
@@ -1059,15 +1137,33 @@ footer {
 
   function closeLightbox() {
     lb.classList.remove('open');
+    // Pause before detaching — a few browsers keep audio running for a
+    // beat if you only wipe the innerHTML out from under a playing file.
+    var playing = lbVideo.querySelector('video');
+    if (playing) { playing.pause(); playing.removeAttribute('src'); playing.load(); }
     lbVideo.innerHTML = '';
     document.body.style.overflow = '';
     if (lastFocused) { lastFocused.focus(); lastFocused = null; }
   }
 
-  // Selected Work tiles are decorative — hover animation only, no
-  // click behavior or navigation. (lastFocused is still used by the
-  // Prompted grid and the demo-reel timecode trigger below.)
+  // Most Selected Work tiles are decorative — hover animation only. The
+  // ones carrying a data-video-src / data-video attribute open the
+  // lightbox, by click or by Enter/Space for keyboard users.
   var lastFocused = null;
+
+  document.querySelectorAll('.project-cell.has-video').forEach(function(cell){
+    cell.addEventListener('click', function(){
+      lastFocused = cell;
+      openLightbox(cell);
+    });
+    cell.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        lastFocused = cell;
+        openLightbox(cell);
+      }
+    });
+  });
 
   lbClose.addEventListener('click', closeLightbox);
 
