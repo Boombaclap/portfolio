@@ -877,22 +877,43 @@ footer {
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Flight Ready</p></div>
     </a>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play The Weeknd"
+         data-video="1188195335"
+         data-title="The Weeknd"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/weekend.png" alt="The Weeknd" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">The Weeknd</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Olivia Rodrigo"
+         data-video="1188253902"
+         data-title="Olivia Rodrigo"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/olivia.jpg" alt="Olivia Rodrigo" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Olivia Rodrigo</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Usher × Super Bowl"
+         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/usher.mov"
+         data-poster="https://boombaclap.github.io/portfolio/images/usher.jpg"
+         data-title="Usher × Super Bowl"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/usher.jpg" alt="Usher Super Bowl" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Usher × Super Bowl</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Hollywood in Your Pocket"
+         data-video="1188510463"
+         data-title="Hollywood in Your Pocket"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/hollywood.png" alt="Hollywood in Your Pocket" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Hollywood in Your Pocket</p></div>
     </div>
@@ -972,7 +993,12 @@ footer {
       <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Ne-Yo Documentary</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Gladiator"
+         data-video="166918312"
+         data-title="Gladiator"
+         data-client="Cineconcerts">
       <img src="https://boombaclap.github.io/portfolio/images/Gladiator.jpg" alt="Gladiator Cineconcerts" loading="lazy">
       <div class="project-label"><p class="project-client">Cineconcerts</p><p class="project-name">Gladiator</p></div>
     </div>
@@ -1215,6 +1241,16 @@ footer {
       v.setAttribute('controlsList', 'nodownload');
       lbVideo.innerHTML = '';
       lbVideo.appendChild(v);
+      // If the file won't decode (wrong container/codec for this browser)
+      // or won't load (CORS, 404), say so and offer a direct link rather
+      // than leaving a silent black frame.
+      v.addEventListener('error', function(){
+        lbVideo.innerHTML = '<div class="lightbox-no-video">' +
+          '<span>This video can\'t play in your browser</span>' +
+          '<a href="' + src + '" target="_blank" rel="noopener noreferrer" ' +
+          'style="font-size:9px;opacity:0.6;color:var(--accent);text-decoration:underline">Open file directly</a>' +
+          '</div>';
+      });
       // Some browsers block autoplay with sound; fall back to the poster
       // plus controls rather than leaving a dead frame.
       var attempt = v.play();
