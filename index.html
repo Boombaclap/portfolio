@@ -814,7 +814,7 @@ footer {
 <section id="work">
   <div class="work-header reveal">
     <h2 class="work-title">Selected <em>Work</em></h2>
-    <span class="work-count">22 Projects</span>
+    <span class="work-count">23 Projects</span>
   </div>
   <div class="project-grid">
 
@@ -902,17 +902,32 @@ footer {
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Movie Magic</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play On Stage — Phoenix"
+         data-video="1186000405"
+         data-title="On Stage — Phoenix"
+         data-client="Live">
       <img src="https://boombaclap.github.io/portfolio/images/OnStage.jpg" alt="On Stage Phoenix" loading="lazy">
       <div class="project-label"><p class="project-client">Live</p><p class="project-name">On Stage — Phoenix</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Jaden Smith × New Balance"
+         data-video="292525285"
+         data-title="Jaden Smith × NB"
+         data-client="New Balance">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_14.jpg" alt="Jaden Smith x New Balance" loading="lazy">
       <div class="project-label"><p class="project-client">New Balance</p><p class="project-name">Jaden Smith × NB</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Testing Action Mode"
+         data-video="1186394605"
+         data-title="Testing Action Mode"
+         data-client="Apple">
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_16.jpg" alt="Testing Action Mode" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Testing Action Mode</p></div>
     </div>
@@ -927,17 +942,32 @@ footer {
       <div class="project-label"><p class="project-client">Independent</p><p class="project-name">After The Raves</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Bob Marley Legacy"
+         data-youtube="KSEH34UgezU"
+         data-title="Bob Marley Legacy"
+         data-client="Documentary">
       <img src="https://boombaclap.github.io/portfolio/images/Legacy.jpg" alt="Bob Marley Legacy" loading="lazy">
       <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Bob Marley Legacy</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play 30 for 30: Friedman's Shoes"
+         data-video="166905710"
+         data-title="30 for 30: Friedman's Shoes"
+         data-client="ESPN">
       <img src="https://boombaclap.github.io/portfolio/images/30For30.jpg" alt="30 for 30 Friedmans Shoes" loading="lazy">
       <div class="project-label"><p class="project-client">ESPN</p><p class="project-name">30 for 30: Friedman's Shoes</p></div>
     </div>
 
-    <div class="project-cell reveal">
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Ne-Yo: In My Own Words"
+         data-youtube="UoupheEXUMo"
+         data-title="Ne-Yo — In My Own Words"
+         data-client="Documentary">
       <img src="https://boombaclap.github.io/portfolio/images/neyo.png" alt="Ne-Yo Documentary" loading="lazy">
       <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Ne-Yo Documentary</p></div>
     </div>
@@ -955,6 +985,16 @@ footer {
     <div class="project-cell reveal">
       <img src="https://boombaclap.github.io/portfolio/images/bl.jpg" alt="Shady Records Bright Lights" loading="lazy">
       <div class="project-label"><p class="project-client">Shady Records</p><p class="project-name">Bright Lights</p></div>
+    </div>
+
+    <div class="project-cell has-video reveal"
+         role="button" tabindex="0"
+         aria-label="Play Ghetto Gastro"
+         data-video="257768139"
+         data-title="Ghetto Gastro"
+         data-client="Documentary">
+      <img src="https://boombaclap.github.io/portfolio/images/ghetto.jpg" alt="Ghetto Gastro" loading="lazy">
+      <div class="project-label"><p class="project-client">Documentary</p><p class="project-name">Ghetto Gastro</p></div>
     </div>
 
   </div>
@@ -1155,6 +1195,7 @@ footer {
 
   function openLightbox(cell) {
     var vid    = cell.dataset.video;
+    var yt     = cell.dataset.youtube;
     var src    = cell.dataset.videoSrc;
     var poster = cell.dataset.poster;
     var title  = cell.dataset.title  || '';
@@ -1180,6 +1221,10 @@ footer {
       if (attempt && attempt.catch) attempt.catch(function(){});
     } else if (vid) {
       lbVideo.innerHTML = '<iframe src="https://player.vimeo.com/video/' + vid + '?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    } else if (yt) {
+      // nocookie domain + rel=0 keeps the end screen from serving up
+      // unrelated suggested videos over your work.
+      lbVideo.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     } else {
       lbVideo.innerHTML = '<div class="lightbox-no-video"><span>Video coming soon</span><span style="font-size:9px;opacity:0.5">Add Vimeo ID via data-video attribute</span></div>';
     }
