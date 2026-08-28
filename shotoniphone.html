@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -98,9 +98,9 @@
       <h2 class="case-section-title">Movie Magic</h2>
     </div>
     <p class="case-section-body reveal">One line on what Movie Magic was and what you did on it.</p>
-    <!-- 16:9, so it runs the full column rather than being cropped into
-         the 9:16 cells the other galleries use. -->
-    <div class="gallery-grid wide feature">
+    <!-- Key art, capped to the same width as the hero band above so the
+         two line up rather than this running the full column. -->
+    <div class="gallery-grid wide feature" style="--hero-max: 1200px;">
       <button type="button" class="gallery-cell reveal"
               data-image="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg"
               data-title="Movie Magic" data-client="Apple"
@@ -110,6 +110,63 @@
         <div class="gallery-caption">
           <p class="gallery-role">Apple</p>
           <p class="gallery-name">Movie Magic</p>
+        </div>
+      </button>
+    </div>
+
+    <!-- "auto" lets each clip set its own tile shape from its metadata,
+         so the Reel, Trailer, Story and Carousels aren't forced into one
+         ratio. data-file resolves against data-media-base. -->
+    <div class="gallery-grid auto"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic.mp4"
+              data-title="Movie Magic &mdash; Reel" data-client="Apple"
+              aria-label="Play Movie Magic Reel">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Reel</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic2.mp4"
+              data-title="Movie Magic &mdash; Trailer" data-client="Apple"
+              aria-label="Play Movie Magic Trailer">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Trailer</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic3.mp4"
+              data-title="Movie Magic &mdash; Story" data-client="Apple"
+              aria-label="Play Movie Magic Story">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Story</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic4.mp4"
+              data-title="Movie Magic &mdash; Carousel 1" data-client="Apple"
+              aria-label="Play Movie Magic Carousel 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Carousel 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic5.mp4"
+              data-title="Movie Magic &mdash; Carousel 2" data-client="Apple"
+              aria-label="Play Movie Magic Carousel 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Carousel 2</p>
         </div>
       </button>
     </div>
@@ -201,6 +258,6 @@
   </div>
 </div>
 
-<script src="case.js?v=6"></script>
+<script src="case.js?v=7"></script>
 </body>
 </html>

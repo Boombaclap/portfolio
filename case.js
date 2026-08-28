@@ -179,6 +179,20 @@
         if (preview.currentTime < 0.05) {
           try { preview.currentTime = 0.1; } catch (err) {}
         }
+        if (!preview.videoWidth || !preview.videoHeight) return;
+        // In an .auto grid, let each clip set its own cell shape rather
+        // than cropping everything into one ratio.
+        var grid = cell.closest('.gallery-grid');
+        if (grid && grid.classList.contains('auto')) {
+          cell.style.aspectRatio = preview.videoWidth + ' / ' + preview.videoHeight;
+        }
+        // And let the file decide how the lightbox frames it, instead of
+        // relying on the markup to declare portrait vs landscape.
+        if (preview.videoHeight > preview.videoWidth) {
+          cell.dataset.orientation = 'portrait';
+        } else {
+          delete cell.dataset.orientation;
+        }
       }, { once: true });
     }
     if (preview) {

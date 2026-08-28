@@ -1093,9 +1093,19 @@ footer {
   padding: 20px;
 }
 
-/* A single hero asset that should run the full column rather than
-   sitting in a two-up row. */
-.gallery-grid.feature { grid-template-columns: 1fr; }
+/* A single key asset, centred and capped so it matches the hero band
+   above it rather than running the full column width. */
+.gallery-grid.feature {
+  grid-template-columns: 1fr;
+  max-width: var(--hero-max, 100%);
+  margin-inline: auto;
+}
+
+/* Mixed-ratio gallery: cells start at 9:16 and each one is re-set to its
+   clip's true aspect ratio once metadata loads, so a Reel, a Trailer and
+   a Carousel can sit in one grid without any of them being cropped.
+   align-items:start stops short cells stretching to match tall ones. */
+.gallery-grid.auto { align-items: start; }
 
 /* Spacing for a call-to-action sitting under the case intro. */
 .case-cta { margin-top: 34px; }
