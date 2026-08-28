@@ -867,7 +867,18 @@ footer {
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
-.case-hero img { display: block; width: 100%; height: auto; }
+/* The hero never renders above its source's native width — upscaling a
+   960px asset across a 1600px viewport is what makes it look soft. Each
+   page sets --hero-max to its own asset's native width; the band and its
+   rules still run full-bleed, so the crop reads as intentional. */
+.case-hero img,
+.case-hero video {
+  display: block;
+  width: 100%;
+  max-width: var(--hero-max, 100%);
+  height: auto;
+  margin: 0 auto;
+}
 
 /* PROJECT SECTIONS */
 .case-section { padding: 100px 40px 0; }

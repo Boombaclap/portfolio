@@ -30,6 +30,15 @@
   document.querySelectorAll('.reveal:not(.case-head .reveal):not(.gallery-grid .reveal)')
     .forEach(function (el) { io.observe(el); });
 
+  // An autoplaying looped hero is motion the visitor didn't ask for. If
+  // they've set a reduced-motion preference, hold it on the first frame.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.case-hero video').forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+
   // ---- Lightbox ---------------------------------------------------------
   var lb       = document.getElementById('lightbox');
   var lbVideo  = document.getElementById('lbVideo');
