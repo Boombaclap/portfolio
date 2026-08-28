@@ -68,19 +68,23 @@
        GALLERY TILE REFERENCE — copy one <button> per asset:
 
        <button type="button" class="gallery-cell has-video reveal"
-               data-youtube="VIDEO_ID" data-orientation="portrait"
-               data-title="Piece name" data-client="Apple"
+               data-file="clip.mp4"
+               data-title="Piece name" data-client="Spatial Video"
                aria-label="Play Piece name">
-         <img src="THUMB_URL" alt="Piece name" loading="lazy">
+         <video muted playsinline loop preload="metadata"></video>
          <div class="gallery-caption">
            <p class="gallery-role">Spatial Video</p>
            <p class="gallery-name">Piece name</p>
          </div>
        </button>
 
-       Vimeo instead of YouTube → data-video="VIMEO_ID"
-       A still rather than video → drop has-video, use data-image="URL"
-       Delete one .gallery-slot for each real asset you add.
+       data-file resolves against the grid's data-media-base above.
+       YouTube instead  → data-youtube="VIDEO_ID"
+       Vimeo instead    → data-video="VIMEO_ID"
+       A still          → drop has-video, use data-image="URL"
+       A vertical asset → add data-orientation="portrait" for a 9:16
+                          lightbox window, and put it in a grid without
+                          the "wide" class.
        ============================================================ -->
 
   <section class="case-section">
@@ -91,10 +95,10 @@
     <!-- data-media-base is the public URL of the R2 bucket. Every tile
          below resolves its data-file against it, so pointing the gallery
          at a different host is a one-line change. -->
-    <div class="gallery-grid"
-         data-media-base="https://REPLACE-WITH-PUBLIC-R2-URL/">
+    <div class="gallery-grid wide"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/">
       <button type="button" class="gallery-cell has-video reveal"
-              data-file="greece.mp4" data-orientation="portrait"
+              data-file="greece.mp4"
               data-title="Greece" data-client="Spatial Video"
               aria-label="Play Greece">
         <video muted playsinline loop preload="metadata"></video>
@@ -104,7 +108,7 @@
         </div>
       </button>
       <button type="button" class="gallery-cell has-video reveal"
-              data-file="ice.mp4" data-orientation="portrait"
+              data-file="ice.mp4"
               data-title="Ice" data-client="Spatial Video"
               aria-label="Play Ice">
         <video muted playsinline loop preload="metadata"></video>
@@ -114,7 +118,7 @@
         </div>
       </button>
       <button type="button" class="gallery-cell has-video reveal"
-              data-file="sheep.mp4" data-orientation="portrait"
+              data-file="sheep.mp4"
               data-title="Sheep" data-client="Spatial Video"
               aria-label="Play Sheep">
         <video muted playsinline loop preload="metadata"></video>
@@ -124,7 +128,7 @@
         </div>
       </button>
       <button type="button" class="gallery-cell has-video reveal"
-              data-file="pug.mp4" data-orientation="portrait"
+              data-file="pug.mp4"
               data-title="Pug" data-client="Spatial Video"
               aria-label="Play Pug">
         <video muted playsinline loop preload="metadata"></video>
@@ -134,7 +138,7 @@
         </div>
       </button>
       <button type="button" class="gallery-cell has-video reveal"
-              data-file="mariachi.mp4" data-orientation="portrait"
+              data-file="mariachi.mp4"
               data-title="Mariachi" data-client="Spatial Video"
               aria-label="Play Mariachi">
         <video muted playsinline loop preload="metadata"></video>

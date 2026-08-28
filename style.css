@@ -905,6 +905,12 @@ footer {
   gap: 3px;
   padding-bottom: 20px;
 }
+/* Landscape variant — 16:9 assets, two to a row. The default grid is
+   9:16 for vertical social crops; this is for widescreen work. */
+.gallery-grid.wide { grid-template-columns: repeat(2, 1fr); }
+.gallery-grid.wide .gallery-cell,
+.gallery-grid.wide .gallery-slot { aspect-ratio: 16 / 9; }
+
 .gallery-cell {
   display: block;
   position: relative;
@@ -1107,5 +1113,8 @@ footer {
   .case-section { padding: 64px 20px 0; }
   .case-hero { margin-top: 52px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
+  /* One widescreen tile per row on phones — two 16:9 cells side by side
+     are too small to read anything in. */
+  .gallery-grid.wide { grid-template-columns: 1fr; }
   .case-nav { padding: 32px 20px; }
 }
