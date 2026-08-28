@@ -30,14 +30,43 @@
   document.querySelectorAll('.reveal:not(.case-head .reveal):not(.gallery-grid .reveal)')
     .forEach(function (el) { io.observe(el); });
 
-  // An autoplaying looped hero is motion the visitor didn't ask for. If
-  // they've set a reduced-motion preference, hold it on the first frame.
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.case-hero video').forEach(function (v) {
-      v.removeAttribute('autoplay');
-      v.pause();
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Hero upgrade -----------------------------------------------------
+  // The markup ships a GIF, which paints straight away. If the h.264/VP9
+  // versions are actually there, we load one off-screen and only swap it
+  // in once it can play — so a missing or broken video file leaves the
+  // GIF in place rather than a blank band. Reduced motion keeps the GIF,
+  // which the browser can pause and the visitor can't be surprised by.
+  document.querySelectorAll('.case-hero img[data-video-mp4]').forEach(function (img) {
+    if (reduceMotion) return;
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.preload = 'auto';
+    if (img.alt) v.setAttribute('aria-label', img.alt);
+
+    ['webm', 'mp4'].forEach(function (kind) {
+      var url = img.dataset['video' + kind.charAt(0).toUpperCase() + kind.slice(1)];
+      if (!url) return;
+      var s = document.createElement('source');
+      s.src = url;
+      s.type = kind === 'webm' ? 'video/webm' : 'video/mp4';
+      v.appendChild(s);
     });
-  }
+
+    // canplay is the signal that a source decoded — not just that a
+    // request succeeded. Only then is it safe to drop the GIF.
+    v.addEventListener('canplay', function () {
+      if (!img.parentNode) return;
+      img.parentNode.replaceChild(v, img);
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }, { once: true });
+
+    v.load();
+  });
 
   // ---- Lightbox ---------------------------------------------------------
   var lb       = document.getElementById('lightbox');
@@ -140,7 +169,18 @@
     // a frame without pulling the whole clip down on page load.
     var preview = cell.querySelector('video');
     var url = fileUrl(cell);
-    if (preview && url && !preview.getAttribute('src')) preview.src = url;
+    // The #t=0.1 fragment is what makes the tile show a frame instead of
+    // a black box: preload="metadata" fetches the header, but most
+    // browsers won't paint anything until the video seeks somewhere.
+    if (preview && url && !preview.getAttribute('src')) {
+      preview.src = url + '#t=0.1';
+      // Safari sometimes needs the seek asked for explicitly.
+      preview.addEventListener('loadedmetadata', function () {
+        if (preview.currentTime < 0.05) {
+          try { preview.currentTime = 0.1; } catch (err) {}
+        }
+      }, { once: true });
+    }
     if (preview) {
       cell.addEventListener('mouseenter', function () {
         var p = preview.play();
@@ -148,7 +188,7 @@
       });
       cell.addEventListener('mouseleave', function () {
         preview.pause();
-        preview.currentTime = 0;
+        preview.currentTime = 0.1;
       });
     }
 
