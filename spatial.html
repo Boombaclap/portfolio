@@ -58,7 +58,7 @@
 </header>
 
 <div class="case-hero reveal">
-  <img src="https://boombaclap.github.io/portfolio/images/spatialgallery.jpg"
+  <img src="https://boombaclap.github.io/portfolio/images/spatial.gif"
        alt="Spatial Gallery" loading="lazy">
 </div>
 
@@ -88,13 +88,61 @@
       <h2 class="case-section-title">Selected Work</h2>
     </div>
     <p class="case-section-body reveal">Here are a few of my favs.</p>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <!-- data-media-base is the public URL of the R2 bucket. Every tile
+         below resolves its data-file against it, so pointing the gallery
+         at a different host is a one-line change. -->
+    <div class="gallery-grid"
+         data-media-base="https://REPLACE-WITH-PUBLIC-R2-URL/">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="greece.mp4" data-orientation="portrait"
+              data-title="Greece" data-client="Spatial Video"
+              aria-label="Play Greece">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Spatial Video</p>
+          <p class="gallery-name">Greece</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="ice.mp4" data-orientation="portrait"
+              data-title="Ice" data-client="Spatial Video"
+              aria-label="Play Ice">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Spatial Video</p>
+          <p class="gallery-name">Ice</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="sheep.mp4" data-orientation="portrait"
+              data-title="Sheep" data-client="Spatial Video"
+              aria-label="Play Sheep">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Spatial Video</p>
+          <p class="gallery-name">Sheep</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="pug.mp4" data-orientation="portrait"
+              data-title="Pug" data-client="Spatial Video"
+              aria-label="Play Pug">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Spatial Video</p>
+          <p class="gallery-name">Pug</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="mariachi.mp4" data-orientation="portrait"
+              data-title="Mariachi" data-client="Spatial Video"
+              aria-label="Play Mariachi">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Spatial Video</p>
+          <p class="gallery-name">Mariachi</p>
+        </div>
+      </button>
     </div>
   </section>
 
