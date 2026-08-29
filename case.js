@@ -83,6 +83,7 @@
   // one-line change rather than an edit per tile.
   function fileUrl(cell) {
     if (!cell.dataset.file) return '';
+    if (/^https?:\/\//.test(cell.dataset.file)) return cell.dataset.file;
     var grid = cell.closest('.gallery-grid');
     var base = (grid && grid.dataset.mediaBase) || '';
     if (base && base.slice(-1) !== '/') base += '/';
@@ -162,6 +163,15 @@
     document.body.style.overflow = '';
     if (lastFocused) { lastFocused.focus(); lastFocused = null; }
   }
+
+  // Standalone triggers — anything outside a gallery that should open the
+  // lightbox, e.g. the page title. No preview video, just the click.
+  document.querySelectorAll('.lightbox-trigger').forEach(function (el) {
+    el.addEventListener('click', function () {
+      lastFocused = el;
+      openLightbox(el);
+    });
+  });
 
   document.querySelectorAll('.gallery-cell').forEach(function (cell) {
     // Point any inline preview <video> at the resolved file, and let it

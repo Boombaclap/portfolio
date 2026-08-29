@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -47,7 +47,12 @@
 
 <header class="case-head">
   <div class="section-eyebrow reveal">Apple &middot; Media Arts Lab</div>
-  <h1 class="case-title reveal">#Shoton<em>iPhone</em></h1>
+  <h1 class="case-title reveal">
+    <button type="button" class="title-play lightbox-trigger"
+            data-file="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/applereel.mp4"
+            data-title="#ShotoniPhone" data-client="Apple"
+            aria-label="Play the #ShotoniPhone reel">#Shoton<em>iPhone</em></button>
+  </h1>
   <p class="case-body reveal">I've spent <strong>six years as Senior Creative Editor on the @apple handle</strong> &mdash; the brand's largest organic social platform, and one of the most-watched feeds on the internet.</p>
   <p class="case-body reveal">The work runs the full range: product launches, brand partnerships, commissioned films with artists and photographers, and UGC pulled from the community that shoots on iPhone every day. Different budgets, different timelines, same bar.</p>
   <p class="case-body reveal">Here are a few of my favorite moments.</p>
@@ -177,20 +182,102 @@
       <h2 class="case-section-title">The Illusionists</h2>
     </div>
     <p class="case-section-body reveal">What the series explored, and who you made it with. Group the work by artist using the sub-headings below &mdash; delete a block if a chapter doesn't need one.</p>
-    <h3 class="case-subhead reveal">Artist name <span class="credit">Photographer</span></h3>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <h3 class="case-subhead reveal">Aaron Duffy</h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion1.mp4"
+              data-title="Creator Profile" data-client="The Illusionists"
+              aria-label="Play Creator Profile">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Creator Profile</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion2.mp4"
+              data-title="Reel" data-client="The Illusionists"
+              aria-label="Play Reel">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel</p>
+        </div>
+      </button>
     </div>
 
-    <h3 class="case-subhead reveal">Artist name <span class="credit">Director</span></h3>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <h3 class="case-subhead reveal">Max Siedentopf</h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion3.mp4"
+              data-title="Reel 1" data-client="The Illusionists"
+              aria-label="Play Reel 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion4.mp4"
+              data-title="Reel 2" data-client="The Illusionists"
+              aria-label="Play Reel 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel 2</p>
+        </div>
+      </button>
+    </div>
+
+    <h3 class="case-subhead reveal">Queso Blanco <span class="credit">Carousel</span></h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF1_IG.mp4"
+              data-title="Carousel GIF 1" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF2_IG.mp4"
+              data-title="Carousel GIF 2" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 2</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF3_IG.mp4"
+              data-title="Carousel GIF 3" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 3">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 3</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF4_IG.mp4"
+              data-title="Carousel GIF 4" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 4">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 4</p>
+        </div>
+      </button>
     </div>
   </section>
 
@@ -326,11 +413,50 @@
       <h2 class="case-section-title">Macrofy</h2>
     </div>
     <p class="case-section-body reveal">A line on what Macrofy was and what made the edit work.</p>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="macro.mp4"
+              data-title="Macrofy" data-client="Macrofy"
+              aria-label="Play Macrofy">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Macrofy</p>
+          <p class="gallery-name">Macrofy</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="MacroStory.mp4"
+              data-title="Story" data-client="Macrofy"
+              aria-label="Play Story">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Macrofy</p>
+          <p class="gallery-name">Story</p>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="case-section-head reveal">
+      <h2 class="case-section-title">The Invincibles</h2>
+    </div>
+    <p class="case-section-body reveal">A line on what The Invincibles was and your role on it.</p>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Invinceibles.mp4"
+              data-title="The Invincibles" data-client="The Invincibles"
+              aria-label="Play The Invincibles">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Invincibles</p>
+          <p class="gallery-name">The Invincibles</p>
+        </div>
+      </button>
     </div>
   </section>
 
@@ -359,6 +485,6 @@
   </div>
 </div>
 
-<script src="case.js?v=8"></script>
+<script src="case.js?v=9"></script>
 </body>
 </html>
