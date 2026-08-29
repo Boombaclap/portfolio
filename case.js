@@ -190,6 +190,14 @@
     );
     if (isNaN(posterTime) || posterTime < 0) posterTime = 0.1;
 
+    // An explicit poster still always wins over seeking to a frame — set
+    // data-poster on the tile once you've exported title cards.
+    if (preview && cell.dataset.poster) preview.poster = cell.dataset.poster;
+
+    // Grids marked data-autoplay run their clips continuously rather than
+    // only on hover — for short looping GIF-style assets.
+    var alwaysPlay = grid && grid.dataset.autoplay !== undefined;
+
     if (preview && url && !preview.getAttribute('src')) {
       preview.src = url + '#t=' + posterTime;
       // Safari sometimes needs the seek asked for explicitly.
@@ -216,7 +224,14 @@
         }
       }, { once: true });
     }
-    if (preview) {
+    if (preview && alwaysPlay) {
+      preview.autoplay = true;
+      preview.setAttribute('autoplay', '');
+      preview.addEventListener('loadeddata', function () {
+        var p = preview.play();
+        if (p && p.catch) p.catch(function () {});
+      }, { once: true });
+    } else if (preview) {
       cell.addEventListener('mouseenter', function () {
         var p = preview.play();
         if (p && p.catch) p.catch(function () {});

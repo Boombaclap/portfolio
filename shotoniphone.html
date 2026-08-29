@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
@@ -97,189 +97,6 @@
        A still rather than video → drop has-video, use data-image="URL"
        Delete one .gallery-slot for each real asset you add.
        ============================================================ -->
-
-  <section class="case-section">
-    <div class="case-section-head reveal">
-      <h2 class="case-section-title">Movie Magic</h2>
-    </div>
-    <p class="case-section-body reveal">One line on what Movie Magic was and what you did on it.</p>
-    <!-- Key art, capped to the same width as the hero band above so the
-         two line up rather than this running the full column. -->
-    <div class="gallery-grid wide feature" style="--hero-max: 1200px;">
-      <button type="button" class="gallery-cell reveal"
-              data-image="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg"
-              data-title="Movie Magic" data-client="Apple"
-              aria-label="View Movie Magic fullsize">
-        <img src="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg"
-             alt="Movie Magic" loading="lazy">
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Movie Magic</p>
-        </div>
-      </button>
-    </div>
-
-    <!-- "auto" lets each clip set its own tile shape from its metadata,
-         so the Reel, Trailer, Story and Carousels aren't forced into one
-         ratio. data-file resolves against data-media-base. -->
-    <div class="gallery-grid auto"
-         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/">
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="moviemagic.mp4"
-              data-title="Movie Magic &mdash; Reel" data-client="Apple"
-              aria-label="Play Movie Magic Reel">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Reel</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="moviemagic2.mp4"
-              data-title="Movie Magic &mdash; Trailer" data-client="Apple"
-              aria-label="Play Movie Magic Trailer">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Trailer</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="moviemagic3.mp4"
-              data-title="Movie Magic &mdash; Story" data-client="Apple"
-              aria-label="Play Movie Magic Story">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Story</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="moviemagic4.mp4"
-              data-title="Movie Magic &mdash; Carousel 1" data-client="Apple"
-              aria-label="Play Movie Magic Carousel 1">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Carousel 1</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="moviemagic5.mp4"
-              data-title="Movie Magic &mdash; Carousel 2" data-client="Apple"
-              aria-label="Play Movie Magic Carousel 2">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">Apple</p>
-          <p class="gallery-name">Carousel 2</p>
-        </div>
-      </button>
-    </div>
-  </section>
-
-  <section class="case-section">
-    <div class="case-section-head reveal">
-      <h2 class="case-section-title">The Illusionists</h2>
-    </div>
-    <p class="case-section-body reveal">What the series explored, and who you made it with. Group the work by artist using the sub-headings below &mdash; delete a block if a chapter doesn't need one.</p>
-    <h3 class="case-subhead reveal">Aaron Duffy</h3>
-    <div class="gallery-grid two"
-         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
-         data-poster-time="0.8">
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="Illusion1.mp4"
-              data-title="Creator Profile" data-client="The Illusionists"
-              aria-label="Play Creator Profile">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Creator Profile</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="Illusion2.mp4"
-              data-title="Reel" data-client="The Illusionists"
-              aria-label="Play Reel">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Reel</p>
-        </div>
-      </button>
-    </div>
-
-    <h3 class="case-subhead reveal">Max Siedentopf</h3>
-    <div class="gallery-grid two"
-         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
-         data-poster-time="0.8">
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="Illusion3.mp4"
-              data-title="Reel 1" data-client="The Illusionists"
-              aria-label="Play Reel 1">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Reel 1</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="Illusion4.mp4"
-              data-title="Reel 2" data-client="The Illusionists"
-              aria-label="Play Reel 2">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Reel 2</p>
-        </div>
-      </button>
-    </div>
-
-    <h3 class="case-subhead reveal">Queso Blanco <span class="credit">Carousel</span></h3>
-    <div class="gallery-grid two"
-         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
-         data-poster-time="0.8">
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF1_IG.mp4"
-              data-title="Carousel GIF 1" data-client="The Illusionists"
-              aria-label="Play Carousel GIF 1">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Carousel GIF 1</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF2_IG.mp4"
-              data-title="Carousel GIF 2" data-client="The Illusionists"
-              aria-label="Play Carousel GIF 2">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Carousel GIF 2</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF3_IG.mp4"
-              data-title="Carousel GIF 3" data-client="The Illusionists"
-              aria-label="Play Carousel GIF 3">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Carousel GIF 3</p>
-        </div>
-      </button>
-      <button type="button" class="gallery-cell has-video reveal"
-              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF4_IG.mp4"
-              data-title="Carousel GIF 4" data-client="The Illusionists"
-              aria-label="Play Carousel GIF 4">
-        <video muted playsinline loop preload="metadata"></video>
-        <div class="gallery-caption">
-          <p class="gallery-role">The Illusionists</p>
-          <p class="gallery-name">Carousel GIF 4</p>
-        </div>
-      </button>
-    </div>
-  </section>
 
   <section class="case-section">
     <div class="case-section-head reveal">
@@ -397,14 +214,106 @@
 
   <section class="case-section">
     <div class="case-section-head reveal">
-      <h2 class="case-section-title">Everyday Experiments</h2>
+      <h2 class="case-section-title">The Illusionists</h2>
     </div>
-    <p class="case-section-body reveal">A line on the premise of the series and your role across it.</p>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <p class="case-section-body reveal">What the series explored, and who you made it with. Group the work by artist using the sub-headings below &mdash; delete a block if a chapter doesn't need one.</p>
+    <h3 class="case-subhead reveal">Aaron Duffy</h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion1.mp4"
+              data-title="Creator Profile" data-client="The Illusionists"
+              aria-label="Play Creator Profile">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Creator Profile</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion2.mp4"
+              data-title="Reel" data-client="The Illusionists"
+              aria-label="Play Reel">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel</p>
+        </div>
+      </button>
+    </div>
+
+    <h3 class="case-subhead reveal">Max Siedentopf</h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="0.8">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion3.mp4"
+              data-title="Reel 1" data-client="The Illusionists"
+              aria-label="Play Reel 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Illusion4.mp4"
+              data-title="Reel 2" data-client="The Illusionists"
+              aria-label="Play Reel 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Reel 2</p>
+        </div>
+      </button>
+    </div>
+
+    <h3 class="case-subhead reveal">Queso Blanco <span class="credit">Carousel</span></h3>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="1.2"
+         data-autoplay>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF1_IG.mp4"
+              data-title="Carousel GIF 1" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF2_IG.mp4"
+              data-title="Carousel GIF 2" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 2</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF3_IG.mp4"
+              data-title="Carousel GIF 3" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 3">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 3</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="2022_07_19_QuesoBlanco_Max_Carousel%20GIF4_IG.mp4"
+              data-title="Carousel GIF 4" data-client="The Illusionists"
+              aria-label="Play Carousel GIF 4">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">The Illusionists</p>
+          <p class="gallery-name">Carousel GIF 4</p>
+        </div>
+      </button>
     </div>
   </section>
 
@@ -460,6 +369,188 @@
     </div>
   </section>
 
+  <section class="case-section">
+    <div class="case-section-head reveal">
+      <h2 class="case-section-title">Movie Magic</h2>
+    </div>
+    <p class="case-section-body reveal">One line on what Movie Magic was and what you did on it.</p>
+    <!-- Key art, capped to the same width as the hero band above so the
+         two line up rather than this running the full column. -->
+    <div class="gallery-grid wide feature" style="--hero-max: 1200px;">
+      <button type="button" class="gallery-cell reveal"
+              data-image="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg"
+              data-title="Movie Magic" data-client="Apple"
+              aria-label="View Movie Magic fullsize">
+        <img src="https://boombaclap.github.io/portfolio/images/MovieMagic.jpg"
+             alt="Movie Magic" loading="lazy">
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Movie Magic</p>
+        </div>
+      </button>
+    </div>
+
+    <!-- "auto" lets each clip set its own tile shape from its metadata,
+         so the Reel, Trailer, Story and Carousels aren't forced into one
+         ratio. data-file resolves against data-media-base. -->
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="1.2">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic.mp4"
+              data-title="Reel" data-client="Movie Magic"
+              aria-label="Play Reel">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Movie Magic</p>
+          <p class="gallery-name">Reel</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic2.mp4"
+              data-title="Trailer" data-client="Movie Magic"
+              aria-label="Play Trailer">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Movie Magic</p>
+          <p class="gallery-name">Trailer</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic3.mp4"
+              data-title="Story" data-client="Movie Magic"
+              aria-label="Play Story">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Movie Magic</p>
+          <p class="gallery-name">Story</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic4.mp4"
+              data-title="Carousel 1" data-client="Movie Magic"
+              aria-label="Play Carousel 1">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Movie Magic</p>
+          <p class="gallery-name">Carousel 1</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="moviemagic5.mp4"
+              data-title="Carousel 2" data-client="Movie Magic"
+              aria-label="Play Carousel 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Movie Magic</p>
+          <p class="gallery-name">Carousel 2</p>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="case-section-head reveal">
+      <h2 class="case-section-title">Everyday Experiments</h2>
+    </div>
+    <p class="case-section-body reveal">A line on the premise of the series and your role across it.</p>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="1.2">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday3.mp4"
+              data-title="Monsters" data-client="Everyday Experiments"
+              aria-label="Play Monsters">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Monsters</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday4.mp4"
+              data-title="Monsters BTS" data-client="Everyday Experiments"
+              aria-label="Play Monsters BTS">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Monsters BTS</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="MonsterBTS2.mp4"
+              data-title="Monsters BTS 2" data-client="Everyday Experiments"
+              aria-label="Play Monsters BTS 2">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Monsters BTS 2</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday1.mp4"
+              data-title="Candy" data-client="Everyday Experiments"
+              aria-label="Play Candy">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Candy</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday5.mp4"
+              data-title="Candy Clip" data-client="Everyday Experiments"
+              aria-label="Play Candy Clip">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Candy Clip</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday2.mp4"
+              data-title="Action" data-client="Everyday Experiments"
+              aria-label="Play Action">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Action</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="everyday6.mp4"
+              data-title="Action BTS" data-client="Everyday Experiments"
+              aria-label="Play Action BTS">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Everyday Experiments</p>
+          <p class="gallery-name">Action BTS</p>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="case-section-head reveal">
+      <h2 class="case-section-title">Babies</h2>
+    </div>
+    <p class="case-section-body reveal">A line on what Babies was and your role on it.</p>
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="1.2">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="baby.mp4"
+              data-title="Babies" data-client="Apple"
+              aria-label="Play Babies">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Apple</p>
+          <p class="gallery-name">Babies</p>
+        </div>
+      </button>
+    </div>
+  </section>
+
 </main>
 
 <div class="case-nav">
@@ -485,6 +576,6 @@
   </div>
 </div>
 
-<script src="case.js?v=9"></script>
+<script src="case.js?v=10"></script>
 </body>
 </html>
