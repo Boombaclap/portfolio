@@ -169,20 +169,31 @@
     // a frame without pulling the whole clip down on page load.
     var preview = cell.querySelector('video');
     var url = fileUrl(cell);
-    // The #t=0.1 fragment is what makes the tile show a frame instead of
-    // a black box: preload="metadata" fetches the header, but most
-    // browsers won't paint anything until the video seeks somewhere.
+    // The #t= fragment is what makes the tile show a frame instead of a
+    // black box: preload="metadata" fetches the header, but most browsers
+    // won't paint anything until the video seeks somewhere. Set
+    // data-poster-time (on the tile or its grid) to land on a title card
+    // or skip a fade-up; it defaults to the very start of the clip.
+    var grid = cell.closest('.gallery-grid');
+    var posterTime = parseFloat(
+      cell.dataset.posterTime || (grid && grid.dataset.posterTime) || 0.1
+    );
+    if (isNaN(posterTime) || posterTime < 0) posterTime = 0.1;
+
     if (preview && url && !preview.getAttribute('src')) {
-      preview.src = url + '#t=0.1';
+      preview.src = url + '#t=' + posterTime;
       // Safari sometimes needs the seek asked for explicitly.
       preview.addEventListener('loadedmetadata', function () {
-        if (preview.currentTime < 0.05) {
-          try { preview.currentTime = 0.1; } catch (err) {}
+        // Don't seek past a clip shorter than the requested poster time.
+        var t = (preview.duration && posterTime >= preview.duration)
+          ? Math.min(0.1, preview.duration / 2)
+          : posterTime;
+        if (Math.abs(preview.currentTime - t) > 0.05) {
+          try { preview.currentTime = t; } catch (err) {}
         }
         if (!preview.videoWidth || !preview.videoHeight) return;
         // In an .auto grid, let each clip set its own cell shape rather
         // than cropping everything into one ratio.
-        var grid = cell.closest('.gallery-grid');
         if (grid && grid.classList.contains('auto')) {
           cell.style.aspectRatio = preview.videoWidth + ' / ' + preview.videoHeight;
         }
@@ -202,7 +213,7 @@
       });
       cell.addEventListener('mouseleave', function () {
         preview.pause();
-        preview.currentTime = 0.1;
+        preview.currentTime = posterTime;
       });
     }
 

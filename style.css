@@ -1101,6 +1101,15 @@ footer {
   margin-inline: auto;
 }
 
+/* Two-up vertical gallery. At full page width two 9:16 cells would be
+   over 1000px tall, so the grid is capped and centred — override
+   --grid-max per section if a set wants more room. */
+.gallery-grid.two {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: var(--grid-max, 760px);
+  margin-inline: auto;
+}
+
 /* Mixed-ratio gallery: cells start at 9:16 and each one is re-set to its
    clip's true aspect ratio once metadata loads, so a Reel, a Trailer and
    a Carousel can sit in one grid without any of them being cropped.

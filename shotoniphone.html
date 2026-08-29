@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -199,11 +199,112 @@
       <h2 class="case-section-title">Teach in the Feed</h2>
     </div>
     <p class="case-section-body reveal">What the series set out to do and how the pieces were built. Credit the creator per tile in the captions if you want them named.</p>
-    <div class="gallery-grid">
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
-      <div class="gallery-slot reveal">Drop asset</div>
+    <!-- Two-up 9:16. data-poster-time seeks each tile past the opening
+         frames so it rests on the title card rather than a black lead-in;
+         nudge it per tile with data-poster-time on the button itself. -->
+    <div class="gallery-grid two"
+         data-media-base="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/"
+         data-poster-time="1.2">
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach1.mp4"
+              data-title="How to shoot light trails" data-client="Teach in the Feed"
+              aria-label="Play How to shoot light trails">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to shoot light trails</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach2.mp4"
+              data-title="How to film golden hour" data-client="Teach in the Feed"
+              aria-label="Play How to film golden hour">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to film golden hour</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach3.mp4"
+              data-title="How to create ultra wide distortions" data-client="Teach in the Feed"
+              aria-label="Play How to create ultra wide distortions">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to create ultra wide distortions</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach4.mp4"
+              data-title="How to create ultra wide distortions" data-client="Teach in the Feed"
+              aria-label="Play How to create ultra wide distortions">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to create ultra wide distortions</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach5.mp4"
+              data-title="How to create surreal lighting effects" data-client="Teach in the Feed"
+              aria-label="Play How to create surreal lighting effects">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to create surreal lighting effects</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach6.mp4"
+              data-title="How to shoot a DIY crane shot" data-client="Teach in the Feed"
+              aria-label="Play How to shoot a DIY crane shot">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to shoot a DIY crane shot</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach7.mp4"
+              data-title="How to shoot with color gels" data-client="Teach in the Feed"
+              aria-label="Play How to shoot with color gels">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to shoot with color gels</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach8.mp4"
+              data-title="How to shoot portraits" data-client="Teach in the Feed"
+              aria-label="Play How to shoot portraits">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to shoot portraits</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach9.mp4"
+              data-title="How to film cinematic movement" data-client="Teach in the Feed"
+              aria-label="Play How to film cinematic movement">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to film cinematic movement</p>
+        </div>
+      </button>
+      <button type="button" class="gallery-cell has-video reveal"
+              data-file="Teach10.mp4"
+              data-title="How to collage" data-client="Teach in the Feed"
+              aria-label="Play How to collage">
+        <video muted playsinline loop preload="metadata"></video>
+        <div class="gallery-caption">
+          <p class="gallery-role">Teach in the Feed</p>
+          <p class="gallery-name">How to collage</p>
+        </div>
+      </button>
     </div>
   </section>
 
@@ -258,6 +359,6 @@
   </div>
 </div>
 
-<script src="case.js?v=7"></script>
+<script src="case.js?v=8"></script>
 </body>
 </html>
