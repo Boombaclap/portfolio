@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 
 <script type="application/ld+json">
 {
@@ -111,7 +111,7 @@
     <div class="project-cell has-video reveal"
          role="button" tabindex="0"
          aria-label="Play Critter Carol"
-         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/USEN_GOODLUCK5_VIDEO_169AR_3m14s_ASGO_CMRA_NONCARRIER_WM_TWTT_AMAD0327292H_1.mp4"
+         data-videos='[{"label": "Film", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/USEN_GOODLUCK5_VIDEO_169AR_3m14s_ASGO_CMRA_NONCARRIER_WM_TWTT_AMAD0327292H_1.mp4"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/holiday_case.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg"
          data-title="Critter Carol"
          data-client="Apple">
@@ -478,6 +478,7 @@
       <span class="lightbox-client" id="lbClient"></span>
       <span class="lightbox-title" id="lbTitle"></span>
     </div>
+    <div class="lightbox-tabs" id="lbTabs" role="tablist"></div>
   </div>
 </div>
 
@@ -545,19 +546,39 @@
   var lbTitle = document.getElementById('lbTitle');
   var lbClient= document.getElementById('lbClient');
   var lbClose = document.getElementById('lbClose');
+  var lbTabs  = document.getElementById('lbTabs');
 
-  function openLightbox(cell) {
-    var vid    = cell.dataset.video;
-    var yt     = cell.dataset.youtube;
-    var src    = cell.dataset.videoSrc;
-    var poster = cell.dataset.poster;
-    var title  = cell.dataset.title  || '';
-    var client = cell.dataset.client || '';
-    lbTitle.textContent  = title;
-    lbClient.textContent = client;
+  // A tile can carry one video (data-video-src / data-video / data-youtube)
+  // or several, via data-videos: a JSON array of {label, src|vimeo|youtube}.
+  // With more than one, chips appear under the player to switch between
+  // them without leaving the lightbox — cheaper than a page per project.
+  function playlistFor(cell) {
+    if (cell.dataset.videos) {
+      try {
+        var list = JSON.parse(cell.dataset.videos);
+        if (Array.isArray(list) && list.length) return list;
+      } catch (err) {
+        // Malformed JSON shouldn't kill the click — fall through to the
+        // single-video attributes below.
+      }
+    }
+    return [{
+      label:   cell.dataset.label || '',
+      src:     cell.dataset.videoSrc,
+      vimeo:   cell.dataset.video,
+      youtube: cell.dataset.youtube,
+      poster:  cell.dataset.poster
+    }];
+  }
+
+  function renderSource(item, fallbackPoster) {
+    var src    = item.src;
+    var poster = item.poster || fallbackPoster;
+    lbVideo.innerHTML = '';
+
     if (src) {
-      // Self-hosted file: native player. The poster keeps the tile image
-      // on screen while the first frames buffer instead of flashing black.
+      // Self-hosted file: native player. The poster keeps an image on
+      // screen while the first frames buffer instead of flashing black.
       var v = document.createElement('video');
       v.src = src;
       if (poster) v.poster = poster;
@@ -566,7 +587,6 @@
       v.playsInline = true;
       v.preload = 'auto';
       v.setAttribute('controlsList', 'nodownload');
-      lbVideo.innerHTML = '';
       lbVideo.appendChild(v);
       // If the file won't decode (wrong container/codec for this browser)
       // or won't load (CORS, 404), say so and offer a direct link rather
@@ -582,20 +602,55 @@
       // plus controls rather than leaving a dead frame.
       var attempt = v.play();
       if (attempt && attempt.catch) attempt.catch(function(){});
-    } else if (vid) {
-      lbVideo.innerHTML = '<iframe src="https://player.vimeo.com/video/' + vid + '?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-    } else if (yt) {
+    } else if (item.vimeo) {
+      lbVideo.innerHTML = '<iframe src="https://player.vimeo.com/video/' + item.vimeo + '?autoplay=1&color=c8a96e&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    } else if (item.youtube) {
       // nocookie domain + rel=0 keeps the end screen from serving up
       // unrelated suggested videos over your work.
-      lbVideo.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+      lbVideo.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     } else {
       lbVideo.innerHTML = '<div class="lightbox-no-video"><span>Video coming soon</span><span style="font-size:9px;opacity:0.5">Add Vimeo ID via data-video attribute</span></div>';
     }
+  }
+
+  function openLightbox(cell) {
+    var title  = cell.dataset.title  || '';
+    var client = cell.dataset.client || '';
+    lbTitle.textContent  = title;
+    lbClient.textContent = client;
+
+    var list = playlistFor(cell);
+    var fallbackPoster = cell.dataset.poster;
+
+    lbTabs.innerHTML = '';
+    if (list.length > 1) {
+      list.forEach(function (item, i) {
+        var tab = document.createElement('button');
+        tab.type = 'button';
+        tab.className = 'lightbox-tab' + (i === 0 ? ' active' : '');
+        tab.textContent = item.label || ('Video ' + (i + 1));
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        tab.addEventListener('click', function () {
+          lbTabs.querySelectorAll('.lightbox-tab').forEach(function (t) {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          renderSource(item, fallbackPoster);
+        });
+        lbTabs.appendChild(tab);
+      });
+    }
+
+    renderSource(list[0], fallbackPoster);
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
+    if (lbTabs) lbTabs.innerHTML = '';
     lb.classList.remove('open');
     // Pause before detaching — a few browsers keep audio running for a
     // beat if you only wipe the innerHTML out from under a playing file.

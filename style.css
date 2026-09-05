@@ -762,6 +762,35 @@ footer {
   font-weight: 300;
   color: var(--white);
 }
+/* Playlist chips — shown only when a tile carries more than one video,
+   so a single-video lightbox looks exactly as it did before. */
+.lightbox-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.lightbox-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.lightbox-tab:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+.lightbox-tab.active {
+  color: var(--black);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.lightbox-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .lightbox-close {
   position: absolute;
   top: -44px; right: 0;
