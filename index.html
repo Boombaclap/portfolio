@@ -111,7 +111,7 @@
     <div class="project-cell has-video reveal"
          role="button" tabindex="0"
          aria-label="Play Remnants"
-         data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/remnants.mp4"
+         data-videos='[{"label": "Film", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/remnants.mp4"}, {"label": "BTS", "instagram": "DeiTavKMEts"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/remnants.jpg"
          data-title="Remnants"
          data-client="">
@@ -599,7 +599,7 @@
   var lbTabs  = document.getElementById('lbTabs');
 
   // A tile can carry one video (data-video-src / data-video / data-youtube)
-  // or several, via data-videos: a JSON array of {label, src|vimeo|youtube}.
+  // or several, via data-videos: a JSON array of {label, src|vimeo|youtube|instagram}.
   // With more than one, chips appear under the player to switch between
   // them without leaving the lightbox — cheaper than a page per project.
   function playlistFor(cell) {
@@ -658,6 +658,10 @@
       // nocookie domain + rel=0 keeps the end screen from serving up
       // unrelated suggested videos over your work.
       lbVideo.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + item.youtube + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    } else if (item.instagram) {
+      // Instagram's official embed endpoint keeps BTS posts inside the
+      // same tabbed lightbox as the project's other films.
+      lbVideo.innerHTML = '<iframe src="https://www.instagram.com/p/' + item.instagram + '/embed/" title="Instagram BTS reel" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
     } else {
       lbVideo.innerHTML = '<div class="lightbox-no-video"><span>Video coming soon</span><span style="font-size:9px;opacity:0.5">Add Vimeo ID via data-video attribute</span></div>';
     }
