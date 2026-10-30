@@ -59,6 +59,20 @@
   "sameAs": ["https://www.linkedin.com/in/seanmobrien1/", "https://www.imdb.com/name/nm5634588/"]
 }
 </script>
+<style id="work-access-styles">
+.work-lock { position:absolute; top:14px; right:14px; z-index:3; padding:6px 9px; background:rgba(8,8,8,.8); border:1px solid rgba(200,169,110,.35); border-radius:20px; color:var(--accent); font:9px 'DM Mono',monospace; letter-spacing:.1em; pointer-events:none; }
+.work-unlocked .work-lock { display:none; }
+#workAccess { margin:auto; width:min(440px,calc(100% - 40px)); padding:32px; background:var(--dark); color:var(--white); border:1px solid rgba(200,169,110,.35); max-height:calc(100dvh - 40px); overflow:auto; }
+#workAccess::backdrop { background:rgba(8,8,8,.9); }
+#workAccess h2 { font:300 36px 'Cormorant Garamond',serif; margin:0 0 12px; }
+#workAccess p { color:var(--soft); line-height:1.6; margin-bottom:24px; }
+#workAccess label { display:block; font:10px 'DM Mono',monospace; letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px; }
+#workPassword { width:100%; padding:13px; border:1px solid rgba(255,255,255,.25); background:var(--black); color:var(--white); font:16px 'DM Mono',monospace; }
+#workPassword:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+#workAccessError { min-height:24px; margin:10px 0 16px; color:#f0ad9d; font-size:13px; }
+.work-access-actions { display:flex; gap:12px; flex-wrap:wrap; }
+.work-access-actions button { cursor:pointer; background:transparent; }
+</style>
 </head>
 <body>
 
@@ -114,7 +128,8 @@
          data-videos='[{"label": "BTS Film", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/applemusic.mp4"}, {"label": "BTS Social", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/applemusic_vert.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/applemusic.png"
          data-title="Apple Music Rebrand"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/applemusic.png" alt="Apple Music Rebrand" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Apple Music Rebrand</p></div>
     </div>
@@ -125,7 +140,8 @@
          data-videos='[{"label": "Trailer", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/remnants.mp4"}, {"label": "BTS", "href": "https://www.instagram.com/p/DeiTavKMEts/"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/remnants.jpg"
          data-title="Remnants"
-         data-client="Apple Vision Pro">
+         data-client="Apple Vision Pro" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/remnants.jpg" alt="Remnants" loading="lazy">
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Remnants</p></div>
     </div>
@@ -136,7 +152,8 @@
          data-video-src="https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/macmini.mp4"
          data-poster="https://boombaclap.github.io/portfolio/images/mini.jpg"
          data-title="Mac Mini BTS"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/mini.jpg" alt="Mac Mini BTS" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Mac Mini BTS</p></div>
     </div>
@@ -147,7 +164,8 @@
          data-videos='[{"label": "Film", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/USEN_GOODLUCK5_VIDEO_169AR_3m14s_ASGO_CMRA_NONCARRIER_WM_TWTT_AMAD0327292H_1.mp4"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/holiday_case.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg"
          data-title="Critter Carol"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_CC_POSTER.jpg" alt="Critter Carol" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Critter Carol</p></div>
     </div>
@@ -158,7 +176,8 @@
          data-videos='[{"label": "Trailer", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/submerged_trailer.mp4"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/sub_case.mp4"}, {"label": "BTS", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/sub_BTS.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg"
          data-title="Submerged"
-         data-client="Apple Vision Pro">
+         data-client="Apple Vision Pro" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_2.jpg" alt="Submerged" loading="lazy">
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Submerged</p></div>
     </div>
@@ -169,7 +188,8 @@
          data-videos='[{"label": "Smart Selfie", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/dua_smart.mp4"}, {"label": "Dual Capture", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/dua_dual.mp4"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/dua_case.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg"
          data-title="Dua Lipa"
-         data-client="Apple iPhone 17 Pro">
+         data-client="Apple iPhone 17 Pro" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_5.jpg" alt="Dua Lipa" loading="lazy">
       <div class="project-label"><p class="project-client">Apple iPhone 17 Pro</p><p class="project-name">Dua Lipa</p></div>
     </div>
@@ -179,21 +199,24 @@
          aria-label="Play Fuzzy Feelings BTS"
          data-videos='[{"label":"BTS","vimeo":"1185353789"},{"label":"Craft Case","src":"https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/fuzzy_case.mp4"},{"label":"Typography Case","src":"https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/fuzzy_case.mp4"}]'
          data-title="Fuzzy Feelings — BTS"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_4.jpg" alt="Fuzzy Feelings" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Fuzzy Feelings</p></div>
     </div>
 
         <a class="project-cell crop-fix has-link reveal"
        href="shotoniphone.html"
-       aria-label="#ShotoniPhone — view the project">
+       aria-label="#ShotoniPhone — view the project" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_6.jpg" alt="Shot on iPhone" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">#ShotoniPhone</p></div>
     </a>
 
     <a class="project-cell has-link reveal"
        href="spatial.html"
-       aria-label="Spatial Gallery — view the project">
+       aria-label="Spatial Gallery — view the project" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/spatial.png" alt="Spatial Gallery" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Spatial Gallery</p></div>
     </a>
@@ -201,7 +224,8 @@
     <a class="project-cell has-link reveal"
        href="https://tv.apple.com/us/movie/flight-ready/umc.cmc.3z7h8273r7myfxlvpjt17futm"
        target="_blank" rel="noopener noreferrer"
-       aria-label="Flight Ready on Apple TV (opens in a new tab)">
+       aria-label="Flight Ready on Apple TV (opens in a new tab)" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/PIMG_3.jpg" alt="Flight Ready" loading="lazy">
       <div class="project-label"><p class="project-client">Apple Vision Pro</p><p class="project-name">Flight Ready</p></div>
     </a>
@@ -211,7 +235,8 @@
          aria-label="Play The Weeknd"
          data-video="1188195335"
          data-title="The Weeknd"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/weekend.png" alt="The Weeknd" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">The Weeknd</p></div>
     </div>
@@ -221,7 +246,8 @@
          aria-label="Play Olivia Rodrigo"
          data-videos='[{"label": "Reel", "vimeo": "1188253902"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/olivia_case.mp4"}]'
          data-title="Olivia Rodrigo"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/olivia.jpg" alt="Olivia Rodrigo" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Olivia Rodrigo</p></div>
     </div>
@@ -232,7 +258,8 @@
          data-videos='[{"label": "Trailer", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/usher.mov"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/user_case.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/usher.jpg"
          data-title="Usher × Super Bowl"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/usher.jpg" alt="Usher Super Bowl" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Usher × Super Bowl</p></div>
     </div>
@@ -243,7 +270,8 @@
          data-videos='[{"label": "Reel", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/iphone14_1.mp4"}, {"label": "Story", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/iPhone14_2.mp4"}, {"label": "Case Study", "src": "https://pub-1ec6e23e09124791b41ece4969a0d80a.r2.dev/iphone14_Case.mp4"}]'
          data-poster="https://boombaclap.github.io/portfolio/images/iPhone14.png"
          data-title="iPhone 14 Pro"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/iPhone14.png" alt="iPhone 14 Pro" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">iPhone 14 Pro</p></div>
     </div>
@@ -253,7 +281,8 @@
          aria-label="Play Hollywood in Your Pocket"
          data-video="1188510463"
          data-title="Hollywood in Your Pocket"
-         data-client="Apple">
+         data-client="Apple" data-work-protected>
+      <span class="work-lock" aria-hidden="true">Locked</span>
       <img src="https://boombaclap.github.io/portfolio/images/hollywood.png" alt="Hollywood in Your Pocket" loading="lazy">
       <div class="project-label"><p class="project-client">Apple</p><p class="project-name">Hollywood in Your Pocket</p></div>
     </div>
@@ -526,6 +555,81 @@
   <span class="footer-role">Senior Creative Editor, Media Arts Lab</span>
   <span class="footer-text">Los Angeles, CA</span>
 </footer>
+
+<dialog id="workAccess" aria-labelledby="workAccessTitle" aria-describedby="workAccessDescription">
+  <form id="workAccessForm">
+    <h2 id="workAccessTitle">Selected Work</h2>
+    <p id="workAccessDescription">Enter the password to view these projects.</p>
+    <label for="workPassword">Password</label>
+    <input id="workPassword" type="password" autocomplete="current-password" autocapitalize="off" spellcheck="false" aria-describedby="workAccessError" required autofocus>
+    <div id="workAccessError" role="status" aria-live="polite"></div>
+    <div class="work-access-actions">
+      <button class="btn primary" type="submit">Unlock</button>
+      <button class="btn" id="workAccessCancel" type="button">Cancel</button>
+    </div>
+  </form>
+</dialog>
+<script id="work-access-script">
+(function () {
+  'use strict';
+  // This is a page-level gate; media hosting remains public.
+  var dialog = document.getElementById('workAccess');
+  var form = document.getElementById('workAccessForm');
+  var input = document.getElementById('workPassword');
+  var error = document.getElementById('workAccessError');
+  var pending = null;
+  var unlocked = false;
+  var storageKey = 'selected-work-access-v1';
+  try { unlocked = sessionStorage.getItem(storageKey) === 'unlocked'; } catch (e) {}
+  function updateLocks() {
+    document.documentElement.classList.toggle('work-unlocked', unlocked);
+  }
+  updateLocks();
+  function intercept(event) {
+    if (unlocked) return;
+    var tile = event.target.closest('#work .project-cell[data-work-protected]');
+    if (!tile) return;
+    if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ' && event.key !== 'Spacebar') return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    pending = tile;
+    input.value = '';
+    input.removeAttribute('aria-invalid');
+    error.textContent = '';
+    if (!dialog.open) dialog.showModal();
+    input.focus();
+  }
+  // Capture before existing video handlers and link navigation.
+  document.addEventListener('click', intercept, true);
+  document.addEventListener('auxclick', intercept, true);
+  document.addEventListener('keydown', intercept, true);
+  document.addEventListener('contextmenu', intercept, true);
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (input.value !== 'MAL') {
+      error.textContent = 'Incorrect password. Please try again.';
+      input.setAttribute('aria-invalid', 'true');
+      input.select();
+      return;
+    }
+    unlocked = true;
+    try { sessionStorage.setItem(storageKey, 'unlocked'); } catch (e) {}
+    updateLocks();
+    var tile = pending;
+    pending = null;
+    input.value = '';
+    dialog.close();
+    if (tile) { tile.focus(); tile.click(); }
+  });
+  document.getElementById('workAccessCancel').addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', function () {
+    if (pending) pending.focus();
+    pending = null;
+    input.value = '';
+  });
+})();
+</script>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
