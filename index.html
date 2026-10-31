@@ -138,6 +138,19 @@
   #scrollLanding .scroll-enable:not([hidden]) { display:block; right:24px; bottom:130px; max-width:calc(100% - 48px); }
 }
 </style>
+<style id="mobile-lower-text-preview">
+@media(max-width:680px) {
+  #scrollLanding .hero-eyebrow { display:none; }
+  #scrollLanding .hero-content { position:absolute; left:24px; right:24px; bottom:calc(140px + env(safe-area-inset-bottom,0px)); }
+  #scrollLanding .hero-title { font-size:clamp(42px,10.5vw,60px); margin-bottom:20px; }
+  #scrollLanding .hero-meta { margin-top:0; }
+}
+@media(max-width:680px) and (max-height:600px) {
+  #scrollLanding .hero-title { font-size:34px; margin-bottom:12px; }
+  #scrollLanding .hero-content { bottom:120px; }
+  .mobile-hero-actions { bottom:54px; }
+}
+</style>
 </head>
 <body>
 
