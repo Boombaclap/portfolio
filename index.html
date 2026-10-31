@@ -127,6 +127,17 @@
 }
 
 </style>
+<style id="mobile-scroll-preview-styles">
+@media(max-width:680px) {
+  #scrollLanding.scroll-motion-enabled { height:240svh; }
+  #scrollLanding.scroll-motion-enabled .hero { position:sticky; top:0; height:100svh; min-height:0; }
+  #scrollLanding .hero { padding-bottom:150px; }
+  #scrollLanding .hero-content { opacity:1; transform:none; }
+  .mobile-hero-actions { bottom:calc(66px + env(safe-area-inset-bottom,0px)); }
+  .mobile-hero-actions .btn { flex:none; width:100%; max-width:340px; }
+  #scrollLanding .scroll-enable:not([hidden]) { display:block; right:24px; bottom:130px; max-width:calc(100% - 48px); }
+}
+</style>
 </head>
 <body>
 
@@ -163,7 +174,7 @@
     </div>
   </div>
   <div class="scroll-cue">Scroll to explore</div><div class="scroll-film-progress" aria-hidden="true"><span></span></div>
-<div class="mobile-hero-actions"><a class="btn primary" href="#work">View Work</a><button class="btn mobile-watch-reel" type="button">Watch Reel</button></div>
+<div class="mobile-hero-actions"><a class="btn primary" href="#work">View Work</a></div>
 </section></div>
 
 <section id="work">
@@ -904,7 +915,7 @@
   var cue = section.querySelector('.scroll-cue');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   var desktop = window.matchMedia('(min-width: 681px)');
-  var enabled = desktop.matches && !reduced.matches, target = 0, position = 0, raf = 0, priming = false;
+  var enabled = !reduced.matches, target = 0, position = 0, raf = 0, priming = false;
   var start = document.createElement('button');
   start.className = 'btn primary scroll-enable';
   start.type = 'button';
@@ -912,7 +923,7 @@
   section.querySelector('.hero').appendChild(start);
   function layout() {
     section.classList.toggle('scroll-motion-enabled', enabled);
-    start.hidden = enabled || !desktop.matches;
+    start.hidden = enabled;
     update();
   }
   function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
@@ -947,7 +958,7 @@
     if (attempt && attempt.then) attempt.then(done, function () { priming = false; start.hidden = false; });
     else done();
   }
-  start.addEventListener('click', function () { if (!desktop.matches) return; enabled = true; layout(); prime(); });
+  start.addEventListener('click', function () { enabled = true; layout(); prime(); });
   film.muted = true;
   film.setAttribute('muted', '');
   film.setAttribute('playsinline', '');
@@ -961,18 +972,12 @@
   window.addEventListener('wheel', prime, {once:true, passive:true});
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
-  reduced.addEventListener('change', function () { enabled = desktop.matches && !reduced.matches; layout(); });
+  reduced.addEventListener('change', function () { enabled = !reduced.matches; layout(); });
   document.addEventListener('visibilitychange', function () { if (!document.hidden) update(); });
   function syncSource() {
-    film.setAttribute('aria-hidden', desktop.matches ? 'false' : 'true');
-    enabled = desktop.matches && !reduced.matches;
-    if (desktop.matches) {
-      if (!film.hasAttribute('src')) film.src = film.dataset.desktopSrc;
-    } else {
-      film.pause();
-      if (film.hasAttribute('src')) { film.removeAttribute('src'); film.load(); }
-      position = target = 0;
-    }
+    film.setAttribute('aria-hidden', 'false');
+    enabled = !reduced.matches;
+    if (!film.hasAttribute('src')) film.src = film.dataset.desktopSrc;
     layout();
   }
   desktop.addEventListener('change', syncSource);
@@ -991,7 +996,6 @@
   nav.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
   document.addEventListener('click', function (event) { if (!nav.contains(event.target)) closeMenu(); });
   document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { var open = menu.getAttribute('aria-expanded') === 'true'; closeMenu(); if (open) menu.focus(); } });
-  document.querySelector('.mobile-watch-reel').addEventListener('click', function () { document.getElementById('navTimecode').click(); });
 })();
 </script>
 </body>
