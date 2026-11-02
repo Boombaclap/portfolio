@@ -480,7 +480,7 @@
 
 <section id="about">
   <div class="about-portrait-wrap reveal">
-    <img class="about-portrait" src="https://www.seanmobrien.com/images/sean.gif" alt="Sean O'Brien">
+    <video class="about-portrait" id="aboutPortrait" width="640" height="854" poster="images/sean-poster.jpg" data-src="images/sean-compact.mp4" muted loop playsinline preload="none" aria-label="Animated portrait of Sean O'Brien"></video>
     <p class="about-caption">Sean O'Brien — Los Angeles</p>
   </div>
   <div class="about-text">
@@ -1094,6 +1094,42 @@
   nav.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
   document.addEventListener('click', function (event) { if (!nav.contains(event.target)) closeMenu(); });
   document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { var open = menu.getAttribute('aria-expanded') === 'true'; closeMenu(); if (open) menu.focus(); } });
+})();
+</script>
+<script id="about-portrait-script">
+(function () {
+  var video = document.getElementById('aboutPortrait');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var inView = false;
+  function shouldPlay() { return inView && !document.hidden && !reduced.matches; }
+  function update() {
+    if (!shouldPlay()) { video.pause(); return; }
+    if (!video.hasAttribute('src')) video.src = video.dataset.src;
+    var attempt = video.play();
+    if (attempt && attempt.then) attempt.then(function () {
+      if (!shouldPlay()) video.pause();
+      else video.controls = false;
+    }, function () {
+      // Keep the poster and allow manual playback when autoplay is blocked.
+      if (shouldPlay()) video.controls = true;
+    });
+  }
+  var observer = new IntersectionObserver(function (entries) {
+    inView = entries[0].isIntersecting;
+    update();
+  }, {rootMargin:'150px 0px'});
+  observer.observe(video);
+  reduced.addEventListener('change', function () {
+    if (reduced.matches) {
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+      video.controls = false;
+    } else update();
+  });
+  document.addEventListener('visibilitychange', update);
+  window.addEventListener('pageshow', update);
+  window.addEventListener('pagehide', function () { video.pause(); });
 })();
 </script>
 </body>
