@@ -927,74 +927,159 @@
   var film = document.getElementById('scrollFilm');
   var cue = section.querySelector('.scroll-cue');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var desktop = window.matchMedia('(min-width: 681px)');
-  var enabled = !reduced.matches, target = 0, position = 0, raf = 0, priming = false;
+  // The current source is 60 fps, despite its filename.
+  var FRAME = 1 / 60, RECOVERY_DELAY = 2000;
+  var enabled = !reduced.matches, target = 0, raf = 0;
+  var priming = false, needsPrime = true, generation = 0;
+  var primeTimer = 0, seekTimer = 0, reloaded = false;
   var start = document.createElement('button');
   start.className = 'btn primary scroll-enable';
   start.type = 'button';
   start.textContent = 'Enable scroll video';
   section.querySelector('.hero').appendChild(start);
+
+  function active() { return enabled && !document.hidden; }
+  function schedule() { if (active() && !raf) raf = requestAnimationFrame(tick); }
+  function offerRetry() {
+    start.textContent = 'Resume scroll video';
+    start.hidden = false;
+  }
+  function suspend() {
+    generation++;
+    cancelAnimationFrame(raf);
+    raf = 0;
+    clearTimeout(primeTimer);
+    clearTimeout(seekTimer);
+    primeTimer = seekTimer = 0;
+    priming = false;
+    needsPrime = true;
+    film.pause();
+  }
   function layout() {
     section.classList.toggle('scroll-motion-enabled', enabled);
     start.hidden = enabled;
     update();
   }
-  function schedule() { if (!raf) raf = requestAnimationFrame(tick); }
   function update() {
-    var range = section.offsetHeight - section.querySelector('.hero').offsetHeight;
-    var p = enabled ? Math.max(0, Math.min(1, -section.getBoundingClientRect().top / Math.max(1, range))) : 0;
-    section.style.setProperty('--film-progress', p);
-    if (Number.isFinite(film.duration)) target = p * Math.max(0, film.duration - 1 / 30);
+    // Batch geometry reads and style writes, including rapid scroll events.
     schedule();
+  }
+  function recover() {
+    if (!active()) return;
+    suspend();
+    if (reloaded) { offerRetry(); return; }
+    // At most one automatic reload until a seek succeeds or the user retries.
+    reloaded = true;
+    film.load();
+    offerRetry();
+    schedule();
+  }
+  function watchSeek() {
+    if (!seekTimer) seekTimer = setTimeout(function () {
+      seekTimer = 0;
+      if (film.seeking) recover();
+    }, RECOVERY_DELAY);
   }
   function tick() {
     raf = 0;
-    // Seeking from metadata alone can trigger the first decoded frame in Safari.
-    if (!enabled || priming || film.readyState < 1 || !Number.isFinite(film.duration) || film.seeking) return;
-    var delta = target - position;
-    position = Math.abs(delta) < 1 / 60 ? target : position + delta * 0.28;
-    if (Math.abs(film.currentTime - position) > 1 / 120) {
-      try { film.currentTime = position; } catch (e) { start.hidden = false; }
+    if (!active()) return;
+    var range = section.offsetHeight - section.querySelector('.hero').offsetHeight;
+    var p = Math.max(0, Math.min(1, -section.getBoundingClientRect().top / Math.max(1, range)));
+    section.style.setProperty('--film-progress', p);
+    if (!Number.isFinite(film.duration) || film.readyState < 1) return;
+    target = Math.min(Math.round(p * film.duration / FRAME) * FRAME, Math.max(0, film.duration - FRAME));
+    if (priming) return;
+    if (film.seeking) { watchSeek(); return; }
+    // Keep only the latest scroll target; don't queue intermediate catch-up seeks.
+    if (Math.abs(film.currentTime - target) >= FRAME / 2) {
+      try { film.currentTime = target; watchSeek(); }
+      catch (e) { needsPrime = true; offerRetry(); }
     }
-    if (Math.abs(target - position) > 1 / 60) schedule();
   }
   function prime() {
-    if (!enabled || priming || film.readyState < 1) return;
+    if (!active() || !needsPrime || priming || film.readyState < 1) return;
     priming = true;
-    var attempt;
-    function done() {
+    var token = ++generation;
+    function finish(ok) {
+      // A promise from before suspension must not pause a newer attempt.
+      if (token !== generation) return;
+      clearTimeout(primeTimer);
+      primeTimer = 0;
       film.pause();
       priming = false;
+      needsPrime = !ok;
+      if (ok) { start.hidden = true; cue.textContent = 'Scroll to explore'; }
+      else offerRetry();
       update();
     }
-    try { attempt = film.play(); } catch (e) { priming = false; start.hidden = false; return; }
-    if (attempt && attempt.then) attempt.then(done, function () { priming = false; start.hidden = false; });
-    else done();
+    primeTimer = setTimeout(function () {
+      if (token === generation) recover();
+    }, RECOVERY_DELAY);
+    try {
+      var attempt = film.play();
+      if (attempt && attempt.then) attempt.then(function () { finish(true); }, function () { finish(false); });
+      else finish(true);
+    } catch (e) { finish(false); }
   }
-  start.addEventListener('click', function () { enabled = true; layout(); prime(); });
+  function resume() {
+    if (!active()) return;
+    suspend();
+    update();
+    prime();
+  }
+  function retry() {
+    enabled = true;
+    reloaded = false;
+    suspend();
+    ensureSource();
+    if (film.error || film.readyState < 1 || film.seeking) film.load();
+    layout();
+    prime();
+  }
+  start.addEventListener('click', retry);
   film.muted = true;
   film.setAttribute('muted', '');
   film.setAttribute('playsinline', '');
+  film.setAttribute('aria-hidden', 'false');
   film.addEventListener('loadedmetadata', function () { update(); prime(); });
   film.addEventListener('loadeddata', update);
   film.addEventListener('canplay', update);
-  film.addEventListener('seeked', schedule);
-  film.addEventListener('error', function () { cue.textContent = 'Video could not load — please refresh'; start.hidden = false; });
-  window.addEventListener('pointerdown', prime, {once:true, passive:true});
-  window.addEventListener('touchstart', prime, {once:true, passive:true});
-  window.addEventListener('wheel', prime, {once:true, passive:true});
+  film.addEventListener('seeked', function () {
+    clearTimeout(seekTimer);
+    seekTimer = 0;
+    reloaded = false;
+    if (active()) schedule();
+  });
+  film.addEventListener('error', function () {
+    suspend();
+    cue.textContent = 'Video could not load';
+    offerRetry();
+  });
+  // Retain gesture recovery across tab switches; prime() is a no-op when healthy.
+  window.addEventListener('pointerdown', prime, {passive:true});
+  window.addEventListener('touchstart', prime, {passive:true});
+  window.addEventListener('wheel', prime, {passive:true});
+  window.addEventListener('keydown', prime);
   window.addEventListener('scroll', update, {passive:true});
   window.addEventListener('resize', update);
-  reduced.addEventListener('change', function () { enabled = !reduced.matches; layout(); });
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) update(); });
-  function syncSource() {
-    film.setAttribute('aria-hidden', 'false');
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) suspend(); else resume();
+  });
+  window.addEventListener('pagehide', suspend);
+  window.addEventListener('pageshow', resume);
+  reduced.addEventListener('change', function () {
     enabled = !reduced.matches;
-    if (!film.hasAttribute('src')) film.src = film.dataset.desktopSrc;
+    suspend();
     layout();
+    if (enabled) { ensureSource(); prime(); }
+    else section.style.setProperty('--film-progress', 0);
+  });
+  function ensureSource() {
+    if (!film.hasAttribute('src')) film.src = film.dataset.desktopSrc;
   }
-  desktop.addEventListener('change', syncSource);
-  syncSource();
+  // Reduced-motion visitors keep the poster until they explicitly opt in.
+  if (enabled) ensureSource();
+  layout();
 })();
 </script>
 <script id="mobile-navigation-script">
